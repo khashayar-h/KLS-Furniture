@@ -38,4 +38,4 @@ namespace KLS_Furniture.Model
                 || !string.IsNullOrWhiteSpace(this.LastName);
         }
     }
-}
+}s
