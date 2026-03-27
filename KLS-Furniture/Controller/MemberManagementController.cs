@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using KLS_Furniture.DAL;
 using KLS_Furniture.Model;
+using KLS_Furniture.Model.Entities;
 
 namespace KLS_Furniture.Controller
 {
