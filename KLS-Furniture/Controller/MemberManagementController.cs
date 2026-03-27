@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using KLS_Furniture.DAL;
-using KLS_Furniture.Model.Entities;
+using KLS_Furniture.Model;
 
 namespace KLS_Furniture.Controller
 {
@@ -47,6 +47,19 @@ namespace KLS_Furniture.Controller
                 throw new ArgumentException("Valid MemberId is required for update.", nameof(updateMember));
 
             return _memberMangagementDAL.UpdateMember(updateMember);
+        }
+
+        /// <summary>
+        /// Searches for members based on the entered criteria.
+        /// </summary>
+        /// <param name="criteria">The optional member search criteria.</param>
+        /// <returns>A list of members matching the criteria.</returns>
+        public List<Member> SearchMembers(MemberSearchCriteria criteria)
+        {
+            if (criteria == null)
+                throw new ArgumentNullException(nameof(criteria));
+
+            return _memberMangagementDAL.SearchMembers(criteria);
         }
     }
 }
