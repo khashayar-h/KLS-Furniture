@@ -224,5 +224,10 @@ namespace KLS_Furniture.UserControls
             this.SearchMessageLabel.Text = string.Empty;
             this.SearchMessageLabel.ForeColor = Color.Black;
         }
+
+        private void MemberDetailsControl_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

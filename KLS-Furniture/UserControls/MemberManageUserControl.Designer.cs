@@ -101,6 +101,7 @@
             // 
             // SearchCriteriaGroupBox
             // 
+            this.SearchCriteriaGroupBox.BackColor = System.Drawing.SystemColors.ControlLight;
             this.SearchCriteriaGroupBox.Controls.Add(this.ClearSearchButton);
             this.SearchCriteriaGroupBox.Controls.Add(this.SearchMemberButton);
             this.SearchCriteriaGroupBox.Controls.Add(this.LastNameSearchTextBox);
@@ -113,9 +114,9 @@
             this.SearchCriteriaGroupBox.Controls.Add(this.PhoneSearchLabel);
             this.SearchCriteriaGroupBox.Controls.Add(this.MemberIdSearchLabel);
             this.SearchCriteriaGroupBox.Location = new System.Drawing.Point(4, 50);
-            this.SearchCriteriaGroupBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.SearchCriteriaGroupBox.Margin = new System.Windows.Forms.Padding(4);
             this.SearchCriteriaGroupBox.Name = "SearchCriteriaGroupBox";
-            this.SearchCriteriaGroupBox.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.SearchCriteriaGroupBox.Padding = new System.Windows.Forms.Padding(4);
             this.SearchCriteriaGroupBox.Size = new System.Drawing.Size(1176, 282);
             this.SearchCriteriaGroupBox.TabIndex = 0;
             this.SearchCriteriaGroupBox.TabStop = false;
@@ -123,7 +124,7 @@
             // ClearSearchButton
             // 
             this.ClearSearchButton.Location = new System.Drawing.Point(1012, 212);
-            this.ClearSearchButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.ClearSearchButton.Margin = new System.Windows.Forms.Padding(4);
             this.ClearSearchButton.Name = "ClearSearchButton";
             this.ClearSearchButton.Size = new System.Drawing.Size(100, 48);
             this.ClearSearchButton.TabIndex = 10;
@@ -133,7 +134,7 @@
             // SearchMemberButton
             // 
             this.SearchMemberButton.Location = new System.Drawing.Point(880, 212);
-            this.SearchMemberButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.SearchMemberButton.Margin = new System.Windows.Forms.Padding(4);
             this.SearchMemberButton.Name = "SearchMemberButton";
             this.SearchMemberButton.Size = new System.Drawing.Size(100, 48);
             this.SearchMemberButton.TabIndex = 9;
@@ -143,7 +144,7 @@
             // LastNameSearchTextBox
             // 
             this.LastNameSearchTextBox.Location = new System.Drawing.Point(588, 173);
-            this.LastNameSearchTextBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.LastNameSearchTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.LastNameSearchTextBox.Name = "LastNameSearchTextBox";
             this.LastNameSearchTextBox.Size = new System.Drawing.Size(224, 31);
             this.LastNameSearchTextBox.TabIndex = 8;
@@ -151,7 +152,7 @@
             // FirstNameSearchTextBox
             // 
             this.FirstNameSearchTextBox.Location = new System.Drawing.Point(588, 71);
-            this.FirstNameSearchTextBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.FirstNameSearchTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.FirstNameSearchTextBox.Name = "FirstNameSearchTextBox";
             this.FirstNameSearchTextBox.Size = new System.Drawing.Size(224, 31);
             this.FirstNameSearchTextBox.TabIndex = 7;
@@ -159,7 +160,7 @@
             // PhoneSearchTextBox
             // 
             this.PhoneSearchTextBox.Location = new System.Drawing.Point(194, 171);
-            this.PhoneSearchTextBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.PhoneSearchTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.PhoneSearchTextBox.Name = "PhoneSearchTextBox";
             this.PhoneSearchTextBox.Size = new System.Drawing.Size(224, 31);
             this.PhoneSearchTextBox.TabIndex = 6;
@@ -167,7 +168,7 @@
             // MemberIdSearchTextBox
             // 
             this.MemberIdSearchTextBox.Location = new System.Drawing.Point(194, 69);
-            this.MemberIdSearchTextBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.MemberIdSearchTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.MemberIdSearchTextBox.Name = "MemberIdSearchTextBox";
             this.MemberIdSearchTextBox.Size = new System.Drawing.Size(224, 31);
             this.MemberIdSearchTextBox.TabIndex = 5;
@@ -226,9 +227,9 @@
             // 
             this.SearchResultsGroupBox.Controls.Add(this.MembersDataGridView);
             this.SearchResultsGroupBox.Location = new System.Drawing.Point(6, 342);
-            this.SearchResultsGroupBox.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.SearchResultsGroupBox.Margin = new System.Windows.Forms.Padding(6);
             this.SearchResultsGroupBox.Name = "SearchResultsGroupBox";
-            this.SearchResultsGroupBox.Padding = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.SearchResultsGroupBox.Padding = new System.Windows.Forms.Padding(6);
             this.SearchResultsGroupBox.Size = new System.Drawing.Size(1172, 377);
             this.SearchResultsGroupBox.TabIndex = 2;
             this.SearchResultsGroupBox.TabStop = false;
@@ -240,7 +241,7 @@
             this.MembersDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.MembersDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.MembersDataGridView.Location = new System.Drawing.Point(0, 17);
-            this.MembersDataGridView.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.MembersDataGridView.Margin = new System.Windows.Forms.Padding(6);
             this.MembersDataGridView.MultiSelect = false;
             this.MembersDataGridView.Name = "MembersDataGridView";
             this.MembersDataGridView.ReadOnly = true;
