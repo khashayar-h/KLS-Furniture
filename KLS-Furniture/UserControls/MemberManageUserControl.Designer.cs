@@ -31,7 +31,7 @@
             this.components = new System.ComponentModel.Container();
             this.MemberMangeTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.MemberManageLabel = new System.Windows.Forms.Label();
-            this.memberDetailsUserControl1 = new KLS_Furniture.UserControls.MemberDetailsUserControl();
+            this.MemberDetailsControl = new KLS_Furniture.UserControls.MemberDetailsUserControl();
             this.SearchCriteriaGroupBox = new System.Windows.Forms.GroupBox();
             this.ClearSearchButton = new System.Windows.Forms.Button();
             this.SearchMemberButton = new System.Windows.Forms.Button();
@@ -60,7 +60,7 @@
             this.MemberMangeTableLayoutPanel.ColumnCount = 1;
             this.MemberMangeTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.MemberMangeTableLayoutPanel.Controls.Add(this.MemberManageLabel, 0, 0);
-            this.MemberMangeTableLayoutPanel.Controls.Add(this.memberDetailsUserControl1, 0, 3);
+            this.MemberMangeTableLayoutPanel.Controls.Add(this.MemberDetailsControl, 0, 3);
             this.MemberMangeTableLayoutPanel.Controls.Add(this.SearchCriteriaGroupBox, 0, 1);
             this.MemberMangeTableLayoutPanel.Controls.Add(this.SearchResultsGroupBox, 0, 2);
             this.MemberMangeTableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -88,16 +88,16 @@
             this.MemberManageLabel.Text = "Member Management";
             this.MemberManageLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // memberDetailsUserControl1
+            // MemberDetailsControl
             // 
-            this.memberDetailsUserControl1.AutoSize = true;
-            this.memberDetailsUserControl1.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.memberDetailsUserControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.memberDetailsUserControl1.Location = new System.Drawing.Point(3, 415);
-            this.memberDetailsUserControl1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.memberDetailsUserControl1.Name = "memberDetailsUserControl1";
-            this.memberDetailsUserControl1.Size = new System.Drawing.Size(586, 234);
-            this.memberDetailsUserControl1.TabIndex = 1;
+            this.MemberDetailsControl.AutoSize = true;
+            this.MemberDetailsControl.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.MemberDetailsControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.MemberDetailsControl.Location = new System.Drawing.Point(3, 415);
+            this.MemberDetailsControl.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.MemberDetailsControl.Name = "MemberDetailsControl";
+            this.MemberDetailsControl.Size = new System.Drawing.Size(586, 234);
+            this.MemberDetailsControl.TabIndex = 1;
             // 
             // SearchCriteriaGroupBox
             // 
@@ -283,7 +283,7 @@
 
         private System.Windows.Forms.TableLayoutPanel MemberMangeTableLayoutPanel;
         private System.Windows.Forms.Label MemberManageLabel;
-        private MemberDetailsUserControl memberDetailsUserControl1;
+        private MemberDetailsUserControl MemberDetailsControl;
         private System.Windows.Forms.GroupBox SearchCriteriaGroupBox;
         private System.Windows.Forms.Label PhoneSearchLabel;
         private System.Windows.Forms.Label MemberIdSearchLabel;
