@@ -56,6 +56,25 @@ namespace KLS_Furniture.UserControls
         }
 
         /// <summary>
+        /// Resets the member details control to its default state.
+        /// </summary>
+        public void ResetDisplay()
+        {
+            this._isEdit = false;
+            this._currentMemberID = -1;
+
+            this.ClearLabels();
+            this.ClearInputs();
+            this.DisableAllFields();
+
+            this.AddMemberButton.Enabled = true;
+            this.EditMemberButton.Enabled = false;
+            this.SaveMemberButton.Enabled = false;
+            this.MessageLabel.Text = string.Empty;
+            this.MessageLabel.ForeColor = Color.Black;
+        }
+
+        /// <summary>
         /// Loads member data but keeps everything disabled
         /// Edit requires selecting Edit button
         /// </summary>
