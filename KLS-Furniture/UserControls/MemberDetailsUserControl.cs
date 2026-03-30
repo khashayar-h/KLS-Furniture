@@ -2,8 +2,6 @@
 using KLS_Furniture.Model.Entities;
 using KLS_Furniture.Utils;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics.Metrics;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -18,8 +16,14 @@ namespace KLS_Furniture.UserControls
         private readonly MemberManagementController _controller;
         //Class variable that tracks edit vs new member function
         private bool _isEdit = false;
-        //Class variable that track current member displayed
+        //Class variable that tracks current member displayed
         private int _currentMemberID = -1;
+
+        /// <summary>
+        /// Raised when a member is added or updated.
+        /// Allows datagrid to refresh with new/updated data.
+        /// </summary>
+        public event EventHandler<Member> MemberSaved;
 
         /// <summary>
         /// Contructor of MemberDetailsUserControl Class
@@ -34,24 +38,6 @@ namespace KLS_Furniture.UserControls
             this.EditMemberButton.Enabled = false;
             this.SaveMemberButton.Enabled = false;
             this.BindUpdateClears();
-
-
-            //Temp populates member on load for edit testing
-            //ToDo: Remove this after search implement
-            //this.DisplayMember(new Member
-            //{
-            //    MemberId = 10006,
-            //    FirstName = "Joe",
-            //    LastName = "Nameth",
-            //    Phone = "0123456789",
-            //    DateOfBirth = DateTime.Parse("2000-01-01"),
-            //    Sex = "M",
-            //    AddressLine1 = "Test Address",
-            //    AddressLine2 = "",
-            //    City = "Anywhere",
-            //    State = "GA",
-            //    ZipCode = "12345"
-            //});
 
         }
 
@@ -162,6 +148,7 @@ namespace KLS_Furniture.UserControls
                 }
                 this.ClearLabels();
                 this.DisableAllFields();
+                this.OnMemberSaved(savedMember);
                 MessageLabel.Text = message;
                 MessageLabel.ForeColor = Color.Green;
                 this.EditMemberButton.Enabled = true;
@@ -377,6 +364,11 @@ namespace KLS_Furniture.UserControls
                 
             return isValid;
         }
-    
+
+        protected virtual void OnMemberSaved(Member savedMember)
+        {
+            MemberSaved?.Invoke(this, savedMember);
+        }
+
     }
 }

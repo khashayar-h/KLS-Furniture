@@ -44,6 +44,8 @@ namespace KLS_Furniture.UserControls
             this.PhoneSearchTextBox.TextChanged += (s, e) => this.ClearMessage();
             this.FirstNameSearchTextBox.TextChanged += (s, e) => this.ClearMessage();
             this.LastNameSearchTextBox.TextChanged += (s, e) => this.ClearMessage();
+
+            this.MemberDetailsControl.MemberSaved += MemberDetailsControl_MemberSaved;
         }
 
         /// <summary>
@@ -228,6 +230,57 @@ namespace KLS_Furniture.UserControls
         private void MemberDetailsControl_Load(object sender, EventArgs e)
         {
 
+        }
+
+        /// <summary>
+        /// Refresh datagrid with latest data from database after update or create
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="savedMember"></param>
+        private void MemberDetailsControl_MemberSaved(object sender, Member savedMember)
+        {
+            if (savedMember == null) return;
+
+            RefreshMemberGrid();
+
+            // Reselect the updated/added member in the grid if available
+            SelectMemberInGrid(savedMember.MemberId);
+        }
+
+        /// <summary>
+        /// Rerun the current search to get updated data
+        /// </summary>
+        private void RefreshMemberGrid()
+        {
+            try
+            {
+                MemberSearchCriteria criteria = this.BuildSearchCriteria();
+                List<Member> members = this._controller.SearchMembers(criteria);
+                this._memberBindingSource.DataSource = members;
+
+                this.ShowMessage($"{members.Count} member(s) found.");
+            }
+            catch (Exception ex)
+            {
+                this.ShowError("Failed to refresh grid: " + ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Finds and selects the member in the grid after add/update
+        /// </summary>
+        private void SelectMemberInGrid(int memberId)
+        {
+            foreach (DataGridViewRow row in this.MembersDataGridView.Rows)
+            {
+                if (row.DataBoundItem is Member m && m.MemberId == memberId)
+                {
+                    this.MembersDataGridView.ClearSelection();
+                    row.Selected = true;
+                    this.MembersDataGridView.CurrentCell = row.Cells[0];
+                    break;
+                }
+            }
         }
     }
 }

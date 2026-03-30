@@ -262,8 +262,8 @@
     <Content Include="App_Data\KLSFurniture.mdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Scripts\data.sql" />
-    <Content Include="Scripts\schema.sql" />
+    <Content Include="DB\data.sql" />
+    <Content Include="DB\schema.sql" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">

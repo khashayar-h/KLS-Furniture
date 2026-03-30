@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data.SqlClient;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using KLS_Furniture.Model;
 using KLS_Furniture.Model.Entities;
 
 namespace KLS_Furniture.DAL
 {
+    /// <summary>
+    /// Class to manage the KLSFurniture database member management functions.
+    /// </summary>
     public class MemberManagementDBDAL
     {
         private readonly string _cs;
