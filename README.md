@@ -45,6 +45,11 @@ This is a group project repository. All team members have write access.
 
 See the Wiki for more details on the project plan.
 
+## Iteration 1
+- Username: jane
+- Password: test1234
+- All requirements for this iteration are complete
+
 ## License
 
 MIT License – see the [LICENSE](LICENSE) file for details.
