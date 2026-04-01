@@ -28,8 +28,14 @@ namespace KLS_Furniture.DAL
         }
 
         /// <summary>
-        /// Saves one rental transaction with all of its items.
+        /// Saves one rental transaction and all related rental items in a single database transaction.
         /// </summary>
+        /// <param name="request">
+        /// The rental request that contains the member, employee, rental dates, and selected furniture items.
+        /// </param>
+        /// <returns>
+        /// A result object that contains the saved rental transaction id and the calculated total cost.
+        /// </returns>
         public RentalSaveResult SaveRentalTransaction(RentalSaveRequest request)
         {
             if (request == null)
@@ -98,7 +104,7 @@ namespace KLS_Furniture.DAL
                                 rentalCmd.Parameters.Add("@RentalDateTime", SqlDbType.DateTime2).Value = request.RentalDateTime;
                                 rentalCmd.Parameters.Add("@DueDateTime", SqlDbType.DateTime2).Value = request.DueDateTime;
 
-                                result.RentalTransactionId = (int)rentalCmd.ExecuteScalar();
+                                result.RentalTransactionId = Convert.ToInt32(rentalCmd.ExecuteScalar());
                             }
 
                             foreach (RentalItemInput item in request.Items)
@@ -130,6 +136,64 @@ namespace KLS_Furniture.DAL
             }
 
             return result;
+        }
+
+
+        /// <summary>
+        /// Returns basic furniture data needed for the rental workflow.
+        /// </summary>
+        /// <param name="furnitureId">
+        /// The furniture id to look up.
+        /// </param>
+        /// <returns>
+        /// A lookup item containing the furniture id, name, daily rate, and available quantity.
+        /// Returns null if the furniture item is not found.
+        /// </returns>
+        public RentalFurnitureLookupItem GetFurnitureForRental(int furnitureId)
+        {
+            if (furnitureId <= 0)
+                throw new ArgumentException("A valid furniture id is required.");
+
+            RentalFurnitureLookupItem furniture = null;
+
+            const string sql = @"
+                SELECT furniture_id,
+                       name,
+                       daily_rate,
+                       quantity
+                FROM dbo.furniture
+                WHERE furniture_id = @FurnitureId;";
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(_cs))
+                using (SqlCommand cmd = new SqlCommand(sql, conn))
+                {
+                    cmd.Parameters.Add("@FurnitureId", SqlDbType.Int).Value = furnitureId;
+
+                    conn.Open();
+
+                    using (SqlDataReader r = cmd.ExecuteReader())
+                    {
+                        if (r.Read())
+                        {
+                            furniture = new RentalFurnitureLookupItem
+                            {
+                                FurnitureId = r.GetInt32(r.GetOrdinal("furniture_id")),
+                                Name = r.GetString(r.GetOrdinal("name")),
+                                DailyRate = r.GetDecimal(r.GetOrdinal("daily_rate")),
+                                QuantityAvailable = r.GetInt32(r.GetOrdinal("quantity"))
+                            };
+                        }
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw new DataException("A database error occurred while loading furniture for rental.", ex);
+            }
+
+            return furniture;
         }
     }
 }

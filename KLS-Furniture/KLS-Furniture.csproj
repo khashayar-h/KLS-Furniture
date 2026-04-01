@@ -183,6 +183,7 @@
     <Compile Include="Model\Entities\ReturnTransactionItem.cs" />
     <Compile Include="Model\Lookups\LoggedInUserLookupItem.cs" />
     <Compile Include="Model\Lookups\MemberSearchCriteria.cs" />
+    <Compile Include="Model\Lookups\RentalFurnitureLookupItem.cs" />
     <Compile Include="Model\Rental\RentalCalculator.cs" />
     <Compile Include="Model\Rental\RentalDebugRunner.cs" />
     <Compile Include="Model\Rental\RentalItemInput.cs" />
