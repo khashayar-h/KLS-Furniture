@@ -1,6 +1,7 @@
 ﻿using KLS_Furniture;
 using KLS_Furniture.Controller;
 using KLS_Furniture.DAL;
+using KLS_Furniture.DebugTools;
 using KLS_Furniture.View;
 using System;
 using System.Threading;
@@ -25,6 +26,10 @@ namespace KLSFurniture
 
             try
             {
+                /// smoke test for rental save functionality, can be removed after testing
+                ///RentalDebugRunner.RunRentalSaveSmokeTest();
+                ///return;
+
                 EmployeeDBDAL employeeDBDAL = new EmployeeDBDAL();
                 AuthController authController = new AuthController(employeeDBDAL);
 
