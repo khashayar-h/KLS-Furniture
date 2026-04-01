@@ -47,6 +47,21 @@ namespace KLS_Furniture.DAL
             if (request.DueDateTime < request.RentalDateTime)
                 throw new ArgumentException("Due date cannot be earlier than rental date.");
 
+            foreach (RentalItemInput item in request.Items)
+            {
+                if (item == null)
+                    throw new ArgumentException("Rental item cannot be null.");
+
+                if (item.FurnitureId <= 0)
+                    throw new ArgumentException("A valid furniture item is required.");
+
+                if (item.Quantity <= 0)
+                    throw new ArgumentException("Rental item quantity must be greater than zero.");
+
+                if (item.DailyRateAtRent < 0)
+                    throw new ArgumentException("Rental item daily rate cannot be negative.");
+            }
+
             RentalSaveResult result = new RentalSaveResult
             {
                 TotalCost = RentalCalculator.CalculateRentalTotal(request.Items)
