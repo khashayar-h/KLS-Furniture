@@ -66,6 +66,13 @@ namespace KLS_Furniture.DAL
 
                 if (item.DailyRateAtRent < 0)
                     throw new ArgumentException("Rental item daily rate cannot be negative.");
+
+                RentalFurnitureLookupItem furniture = GetFurnitureForRental(item.FurnitureId);
+                if (furniture == null)
+                    throw new ArgumentException("The selected furniture item does not exist.");
+
+                if (item.Quantity > furniture.QuantityAvailable)
+                    throw new ArgumentException("Requested quantity exceeds available furniture quantity.");
             }
 
             RentalSaveResult result = new RentalSaveResult
