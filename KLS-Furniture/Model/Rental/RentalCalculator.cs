@@ -3,12 +3,12 @@
 namespace KLS_Furniture.Model.Rental
 {
     /// <summary>
-    /// Provides helper methods for rental cost calculations.
+    /// Calculates preview totals from item rates already set in the request.
     /// </summary>
     public static class RentalCalculator
     {
         /// <summary>
-        /// Calculates the total cost for one rental item row.
+        /// Calculates preview total for one rental item.
         /// </summary>
         public static decimal CalculateItemTotal(RentalItemInput item)
         {
@@ -19,7 +19,7 @@ namespace KLS_Furniture.Model.Rental
         }
 
         /// <summary>
-        /// Calculates the total cost for the full rental request.
+        /// Calculates preview total for all rental items.
         /// </summary>
         public static decimal CalculateRentalTotal(List<RentalItemInput> items)
         {

@@ -1,7 +1,7 @@
 ﻿namespace KLS_Furniture.Model.Rental
 {
     /// <summary>
-    /// Represents one item in a rental request before the transaction is saved.
+    /// Represents one rental item; backend save uses database rates as the source of truth.
     /// </summary>
     public class RentalItemInput
     {
