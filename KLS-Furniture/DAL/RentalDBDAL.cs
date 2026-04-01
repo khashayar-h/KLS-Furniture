@@ -103,6 +103,12 @@ namespace KLS_Furniture.DAL
                 VALUES
                     (@RentalTransactionId, @FurnitureId, @Quantity, @DailyRateAtRent);";
 
+            const string updateFurnitureQuantitySql = @"
+                UPDATE dbo.furniture
+                SET quantity = quantity - @Quantity
+                WHERE furniture_id = @FurnitureId
+                  AND quantity >= @Quantity;";
+
             try
             {
                 using (SqlConnection conn = new SqlConnection(_cs))
@@ -138,6 +144,17 @@ namespace KLS_Furniture.DAL
                                     itemCmd.Parameters.Add("@DailyRateAtRent", SqlDbType.Decimal).Value = dbRate;
 
                                     itemCmd.ExecuteNonQuery();
+                                }
+
+                                using (SqlCommand updateQtyCmd = new SqlCommand(updateFurnitureQuantitySql, conn, transaction))
+                                {
+                                    updateQtyCmd.Parameters.Add("@FurnitureId", SqlDbType.Int).Value = item.FurnitureId;
+                                    updateQtyCmd.Parameters.Add("@Quantity", SqlDbType.Int).Value = item.Quantity;
+
+                                    int rowsAffected = updateQtyCmd.ExecuteNonQuery();
+
+                                    if (rowsAffected != 1)
+                                        throw new DataException("Unable to update available furniture quantity.");
                                 }
                             }
 

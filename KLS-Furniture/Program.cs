@@ -27,8 +27,7 @@ namespace KLSFurniture
             try
             {
                 /// smoke test for rental save functionality, can be removed after testing
-                ///RentalDebugRunner.RunRentalSaveSmokeTest();
-                ///return;
+                /// RentalDebugRunner.RunRentalSaveSmokeTest();
 
                 EmployeeDBDAL employeeDBDAL = new EmployeeDBDAL();
                 AuthController authController = new AuthController(employeeDBDAL);
