@@ -170,6 +170,7 @@
     <Compile Include="DAL\EmployeeDBDAL.cs" />
     <Compile Include="DAL\KLSFurnitureDBConnection.cs" />
     <Compile Include="DAL\MemberManagementDBDAL.cs" />
+    <Compile Include="DAL\RentalDBDAL.cs" />
     <Compile Include="Model\CurrentSession.cs" />
     <Compile Include="Model\Entities\Employee.cs" />
     <Compile Include="Model\Entities\Furniture.cs" />
