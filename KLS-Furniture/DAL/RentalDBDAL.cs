@@ -1,5 +1,6 @@
 ﻿using KLS_Furniture.Model.Rental;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
@@ -50,8 +51,16 @@ namespace KLS_Furniture.DAL
             if (request.Items == null || request.Items.Count == 0)
                 throw new ArgumentException("At least one rental item is required.");
 
+            if (!MemberExists(request.MemberId))
+                throw new ArgumentException("The selected member does not exist.");
+
+            if (!EmployeeExists(request.EmployeeId))
+                throw new ArgumentException("The selected employee does not exist.");
+
             if (request.DueDateTime < request.RentalDateTime)
                 throw new ArgumentException("Due date cannot be earlier than rental date.");
+
+            HashSet<int> furnitureIds = new HashSet<int>();
 
             foreach (RentalItemInput item in request.Items)
             {
@@ -60,6 +69,9 @@ namespace KLS_Furniture.DAL
 
                 if (item.FurnitureId <= 0)
                     throw new ArgumentException("A valid furniture item is required.");
+
+                if (!furnitureIds.Add(item.FurnitureId))
+                    throw new ArgumentException("Duplicate furniture items are not allowed in one rental transaction.");
 
                 if (item.Quantity <= 0)
                     throw new ArgumentException("Rental item quantity must be greater than zero.");
@@ -145,7 +157,6 @@ namespace KLS_Furniture.DAL
             return result;
         }
 
-
         /// <summary>
         /// Returns basic furniture data needed for the rental workflow.
         /// </summary>
@@ -201,6 +212,40 @@ namespace KLS_Furniture.DAL
             }
 
             return furniture;
+        }
+
+        private bool MemberExists(int memberId)
+        {
+            const string sql = @"
+                SELECT COUNT(1)
+                FROM dbo.members
+                WHERE member_id = @MemberId;";
+
+            using (SqlConnection conn = new SqlConnection(_cs))
+            using (SqlCommand cmd = new SqlCommand(sql, conn))
+            {
+                cmd.Parameters.Add("@MemberId", SqlDbType.Int).Value = memberId;
+                conn.Open();
+
+                return Convert.ToInt32(cmd.ExecuteScalar()) > 0;
+            }
+        }
+
+        private bool EmployeeExists(int employeeId)
+        {
+            const string sql = @"
+                SELECT COUNT(1)
+                FROM dbo.employees
+                WHERE employee_id = @EmployeeId;";
+
+            using (SqlConnection conn = new SqlConnection(_cs))
+            using (SqlCommand cmd = new SqlCommand(sql, conn))
+            {
+                cmd.Parameters.Add("@EmployeeId", SqlDbType.Int).Value = employeeId;
+                conn.Open();
+
+                return Convert.ToInt32(cmd.ExecuteScalar()) > 0;
+            }
         }
     }
 }
