@@ -76,9 +76,6 @@ namespace KLS_Furniture.DAL
                 if (item.Quantity <= 0)
                     throw new ArgumentException("Rental item quantity must be greater than zero.");
 
-                if (item.DailyRateAtRent < 0)
-                    throw new ArgumentException("Rental item daily rate cannot be negative.");
-
                 RentalFurnitureLookupItem furniture = GetFurnitureForRental(item.FurnitureId);
                 if (furniture == null)
                     throw new ArgumentException("The selected furniture item does not exist.");
@@ -89,7 +86,7 @@ namespace KLS_Furniture.DAL
 
             RentalSaveResult result = new RentalSaveResult
             {
-                TotalCost = RentalCalculator.CalculateRentalTotal(request.Items)
+                TotalCost = 0m
             };
 
             const string insertRentalSql = @"
@@ -128,12 +125,17 @@ namespace KLS_Furniture.DAL
 
                             foreach (RentalItemInput item in request.Items)
                             {
+                                RentalFurnitureLookupItem furniture = GetFurnitureForRental(item.FurnitureId);
+                                decimal dbRate = furniture.DailyRate;
+
+                                result.TotalCost += item.Quantity * dbRate;
+
                                 using (SqlCommand itemCmd = new SqlCommand(insertRentalItemSql, conn, transaction))
                                 {
                                     itemCmd.Parameters.Add("@RentalTransactionId", SqlDbType.Int).Value = result.RentalTransactionId;
                                     itemCmd.Parameters.Add("@FurnitureId", SqlDbType.Int).Value = item.FurnitureId;
                                     itemCmd.Parameters.Add("@Quantity", SqlDbType.Int).Value = item.Quantity;
-                                    itemCmd.Parameters.Add("@DailyRateAtRent", SqlDbType.Decimal).Value = item.DailyRateAtRent;
+                                    itemCmd.Parameters.Add("@DailyRateAtRent", SqlDbType.Decimal).Value = dbRate;
 
                                     itemCmd.ExecuteNonQuery();
                                 }
