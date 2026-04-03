@@ -257,10 +257,10 @@
   <ItemGroup>
     <Content Include="App_Data\KLSFurniture.ldf">
       <DependentUpon>KLSFurniture.mdf</DependentUpon>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="App_Data\KLSFurniture.mdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="DB\data.sql" />
     <Content Include="DB\schema.sql" />

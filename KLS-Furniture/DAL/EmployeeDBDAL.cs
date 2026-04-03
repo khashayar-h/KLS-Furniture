@@ -1,7 +1,11 @@
-﻿using System.ComponentModel;
+﻿using BCrypt.Net;
+using KLS_Furniture.Model.Lookups;
+using System;
+using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
-using KLS_Furniture.Model.Lookups;
+using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace KLS_Furniture.DAL
 {
@@ -27,6 +31,41 @@ namespace KLS_Furniture.DAL
         }
 
         /// <summary>
+        /// Updates the password_hash for a given username
+        /// </summary>
+        public bool UpdatePassword(string username, string newPlainPassword)
+        {
+            if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(newPlainPassword))
+                return false;
+
+            string newHash = HashPasswordForComparison(newPlainPassword);
+
+            const string sql = @"
+                                UPDATE dbo.employees 
+                                SET password_hash = @NewHash 
+                                WHERE username = @Username;";
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(_cs))
+                using (SqlCommand cmd = new SqlCommand(sql, conn))
+                {
+                    cmd.Parameters.Add("@NewHash", SqlDbType.VarChar, 255).Value = newHash;
+                    cmd.Parameters.Add("@Username", SqlDbType.VarChar, 50).Value = username.Trim();
+
+                    conn.Open();
+                    int rowsAffected = cmd.ExecuteNonQuery();
+
+                    return rowsAffected > 0;
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw new DataException("Error updating password in database.", ex);
+            }
+        }
+
+        /// <summary>
         /// Authenticates an employee by username and password.
         /// </summary>
         public LoggedInUserLookupItem AuthenticateUser(string username, string password)
@@ -41,10 +80,10 @@ namespace KLS_Furniture.DAL
                        username,
                        first_name,
                        last_name,
-                       is_admin
+                       is_admin,
+                       password_hash
                 FROM dbo.employees
-                WHERE username = @Username
-                  AND password_hash = @PasswordValue;";
+                WHERE username = @Username;";
 
             try
             {
@@ -52,7 +91,6 @@ namespace KLS_Furniture.DAL
                 using (SqlCommand cmd = new SqlCommand(sql, conn))
                 {
                     cmd.Parameters.Add("@Username", SqlDbType.VarChar, 50).Value = username.Trim();
-                    cmd.Parameters.Add("@PasswordValue", SqlDbType.VarChar, 255).Value = HashPasswordForComparison(password);
 
                     conn.Open();
 
@@ -60,14 +98,18 @@ namespace KLS_Furniture.DAL
                     {
                         if (r.Read())
                         {
-                            user = new LoggedInUserLookupItem
+                            string storedHash = r.GetString(r.GetOrdinal("password_hash"));
+                            if (VerifyPassword(password, storedHash))
                             {
-                                EmployeeId = r.GetInt32(r.GetOrdinal("employee_id")),
-                                Username = r.GetString(r.GetOrdinal("username")),
-                                FirstName = r.GetString(r.GetOrdinal("first_name")),
-                                LastName = r.GetString(r.GetOrdinal("last_name")),
-                                IsAdmin = r.GetBoolean(r.GetOrdinal("is_admin"))
-                            };
+                                user = new LoggedInUserLookupItem
+                                {
+                                    EmployeeId = r.GetInt32(r.GetOrdinal("employee_id")),
+                                    Username = r.GetString(r.GetOrdinal("username")),
+                                    FirstName = r.GetString(r.GetOrdinal("first_name")),
+                                    LastName = r.GetString(r.GetOrdinal("last_name")),
+                                    IsAdmin = r.GetBoolean(r.GetOrdinal("is_admin"))
+                                };
+                            }
                         }
                     }
                 }
@@ -85,15 +127,14 @@ namespace KLS_Furniture.DAL
         /// </summary>
         private string HashPasswordForComparison(string password)
         {
-            /// TODO: When ready to hash password 
-            return password;/// return BCrypt.Net.BCrypt.HashPassword(password, workFactor: 10);
+            return BCrypt.Net.BCrypt.HashPassword(password, workFactor: 10);
         }
 
         // Verifies valid password
-        //private bool VerifyPassword(string textPassword, string hashPassword)
-        //{
-        //    return BCrypt.Net.BCrypt.Verify(textPassword, hashPassword);
-        //}
+        private bool VerifyPassword(string textPassword, string hashPassword)
+        {
+            return BCrypt.Net.BCrypt.Verify(textPassword, hashPassword);
+        }
 
     }
 }
