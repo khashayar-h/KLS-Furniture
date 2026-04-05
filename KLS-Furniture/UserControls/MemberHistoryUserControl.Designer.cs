@@ -30,6 +30,7 @@
         {
             this.MemberHistTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.MemberHistoryLabel = new System.Windows.Forms.Label();
+            this.memberSearchUserControl1 = new KLS_Furniture.UserControls.MemberSearchUserControl();
             this.MemberHistTableLayoutPanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -38,6 +39,7 @@
             this.MemberHistTableLayoutPanel.ColumnCount = 1;
             this.MemberHistTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.MemberHistTableLayoutPanel.Controls.Add(this.MemberHistoryLabel, 0, 0);
+            this.MemberHistTableLayoutPanel.Controls.Add(this.memberSearchUserControl1, 0, 1);
             this.MemberHistTableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.MemberHistTableLayoutPanel.Location = new System.Drawing.Point(0, 0);
             this.MemberHistTableLayoutPanel.Name = "MemberHistTableLayoutPanel";
@@ -60,6 +62,18 @@
             this.MemberHistoryLabel.TabIndex = 0;
             this.MemberHistoryLabel.Text = "Member History";
             // 
+            // memberSearchUserControl1
+            // 
+            this.memberSearchUserControl1.FirstNameText = "";
+            this.memberSearchUserControl1.LastNameText = "";
+            this.memberSearchUserControl1.Location = new System.Drawing.Point(3, 32);
+            this.memberSearchUserControl1.MemberIdText = "";
+            this.memberSearchUserControl1.Name = "memberSearchUserControl1";
+            this.memberSearchUserControl1.PhoneText = "";
+            this.MemberHistTableLayoutPanel.SetRowSpan(this.memberSearchUserControl1, 2);
+            this.memberSearchUserControl1.Size = new System.Drawing.Size(783, 498);
+            this.memberSearchUserControl1.TabIndex = 1;
+            // 
             // MemberHistoryUserControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -77,5 +91,6 @@
 
         private System.Windows.Forms.TableLayoutPanel MemberHistTableLayoutPanel;
         private System.Windows.Forms.Label MemberHistoryLabel;
+        private MemberSearchUserControl memberSearchUserControl1;
     }
 }
