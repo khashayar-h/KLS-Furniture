@@ -38,8 +38,6 @@
             this.StateLabel = new System.Windows.Forms.Label();
             this.ZipLabel = new System.Windows.Forms.Label();
             this.ZipTextBox = new System.Windows.Forms.TextBox();
-            this.AddressLabel = new System.Windows.Forms.Label();
-            this.AddressTextBox = new System.Windows.Forms.TextBox();
             this.GenderLabel = new System.Windows.Forms.Label();
             this.GenderComboBox = new System.Windows.Forms.ComboBox();
             this.PhoneLabel = new System.Windows.Forms.Label();
@@ -55,10 +53,12 @@
             this.PhoneErrorLabel = new System.Windows.Forms.Label();
             this.DOBErrorLabel = new System.Windows.Forms.Label();
             this.GenderErrorLabel = new System.Windows.Forms.Label();
-            this.AddressErrorLabel = new System.Windows.Forms.Label();
             this.StateErrorLabel = new System.Windows.Forms.Label();
             this.ZipErrorLabel = new System.Windows.Forms.Label();
             this.MessageLabel = new System.Windows.Forms.Label();
+            this.AddressLabel = new System.Windows.Forms.Label();
+            this.AddressTextBox = new System.Windows.Forms.TextBox();
+            this.AddressErrorLabel = new System.Windows.Forms.Label();
             this.AddLine2Label = new System.Windows.Forms.Label();
             this.AddLine2TextBox = new System.Windows.Forms.TextBox();
             this.CityLabel = new System.Windows.Forms.Label();
@@ -219,24 +219,6 @@
             this.ZipTextBox.Size = new System.Drawing.Size(152, 22);
             this.ZipTextBox.TabIndex = 20;
             // 
-            // AddressLabel
-            // 
-            this.AddressLabel.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.AddressLabel.AutoSize = true;
-            this.AddressLabel.Location = new System.Drawing.Point(258, 129);
-            this.AddressLabel.Name = "AddressLabel";
-            this.AddressLabel.Size = new System.Drawing.Size(61, 16);
-            this.AddressLabel.TabIndex = 11;
-            this.AddressLabel.Text = "Address:";
-            // 
-            // AddressTextBox
-            // 
-            this.AddressTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.AddressTextBox.Location = new System.Drawing.Point(354, 126);
-            this.AddressTextBox.Name = "AddressTextBox";
-            this.AddressTextBox.Size = new System.Drawing.Size(152, 22);
-            this.AddressTextBox.TabIndex = 12;
-            // 
             // GenderLabel
             // 
             this.GenderLabel.Anchor = System.Windows.Forms.AnchorStyles.Left;
@@ -250,6 +232,7 @@
             // GenderComboBox
             // 
             this.GenderComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.GenderComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.GenderComboBox.FormattingEnabled = true;
             this.GenderComboBox.Location = new System.Drawing.Point(92, 125);
             this.GenderComboBox.Name = "GenderComboBox";
@@ -337,6 +320,7 @@
             // StateComboBox
             // 
             this.StateComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.StateComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.StateComboBox.FormattingEnabled = true;
             this.StateComboBox.Location = new System.Drawing.Point(92, 221);
             this.StateComboBox.Name = "StateComboBox";
@@ -403,18 +387,6 @@
             this.GenderErrorLabel.TabIndex = 25;
             this.GenderErrorLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // AddressErrorLabel
-            // 
-            this.AddressErrorLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.AddressErrorLabel.AutoSize = true;
-            this.tableLayoutPanel1.SetColumnSpan(this.AddressErrorLabel, 2);
-            this.AddressErrorLabel.ForeColor = System.Drawing.Color.Red;
-            this.AddressErrorLabel.Location = new System.Drawing.Point(258, 153);
-            this.AddressErrorLabel.Name = "AddressErrorLabel";
-            this.AddressErrorLabel.Size = new System.Drawing.Size(248, 16);
-            this.AddressErrorLabel.TabIndex = 26;
-            this.AddressErrorLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // StateErrorLabel
             // 
             this.StateErrorLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
@@ -449,6 +421,36 @@
             this.MessageLabel.Size = new System.Drawing.Size(167, 16);
             this.MessageLabel.TabIndex = 29;
             this.MessageLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // AddressLabel
+            // 
+            this.AddressLabel.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.AddressLabel.AutoSize = true;
+            this.AddressLabel.Location = new System.Drawing.Point(258, 129);
+            this.AddressLabel.Name = "AddressLabel";
+            this.AddressLabel.Size = new System.Drawing.Size(61, 16);
+            this.AddressLabel.TabIndex = 11;
+            this.AddressLabel.Text = "Address:";
+            // 
+            // AddressTextBox
+            // 
+            this.AddressTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.AddressTextBox.Location = new System.Drawing.Point(354, 126);
+            this.AddressTextBox.Name = "AddressTextBox";
+            this.AddressTextBox.Size = new System.Drawing.Size(152, 22);
+            this.AddressTextBox.TabIndex = 12;
+            // 
+            // AddressErrorLabel
+            // 
+            this.AddressErrorLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.AddressErrorLabel.AutoSize = true;
+            this.tableLayoutPanel1.SetColumnSpan(this.AddressErrorLabel, 2);
+            this.AddressErrorLabel.ForeColor = System.Drawing.Color.Red;
+            this.AddressErrorLabel.Location = new System.Drawing.Point(258, 153);
+            this.AddressErrorLabel.Name = "AddressErrorLabel";
+            this.AddressErrorLabel.Size = new System.Drawing.Size(248, 16);
+            this.AddressErrorLabel.TabIndex = 26;
+            this.AddressErrorLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // AddLine2Label
             // 

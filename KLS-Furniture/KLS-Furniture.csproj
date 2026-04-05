@@ -200,6 +200,12 @@
     <Compile Include="UserControls\MemberManageUserControl.Designer.cs">
       <DependentUpon>MemberManageUserControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\MemberSearchUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\MemberSearchUserControl.Designer.cs">
+      <DependentUpon>MemberSearchUserControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\NavUserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -239,6 +245,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\MemberManageUserControl.resx">
       <DependentUpon>MemberManageUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\MemberSearchUserControl.resx">
+      <DependentUpon>MemberSearchUserControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\NavUserControl.resx">
       <DependentUpon>NavUserControl.cs</DependentUpon>
