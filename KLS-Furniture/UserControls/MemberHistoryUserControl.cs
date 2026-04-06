@@ -3,23 +3,27 @@ using KLS_Furniture.Model;
 using KLS_Furniture.Model.Entities;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace KLS_Furniture.UserControls
 {
+    /// <summary>
+    /// Main user control for member history.
+    /// </summary>
     public partial class MemberHistoryUserControl : UserControl
     {
-        private readonly MemberManagementController _controller;
+        private readonly MemberManagementController _manageController;
+        private readonly MemberHistoryController _historyController;
+        private Member _selectedMember;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MemberHistoryUserControl"/> class.
+        /// </summary>
         public MemberHistoryUserControl()
         {
             InitializeComponent();
-            _controller = new MemberManagementController();
+            _manageController = new MemberManagementController();
+            _historyController = new MemberHistoryController();
 
             WireUpEvents();
             ClearSearchUI();
@@ -34,8 +38,6 @@ namespace KLS_Furniture.UserControls
             memberSearchUserControl1.SearchClicked += MemberSearchUserControl_SearchClicked;
             memberSearchUserControl1.ClearClicked += MemberSearchUserControl_ClearClicked;
             memberSearchUserControl1.MemberSelected += MemberSearchUserControl_MemberSelected;
-
-            // TODO: Implement history controls
         }
 
         /// <summary>
@@ -53,7 +55,7 @@ namespace KLS_Furniture.UserControls
                     return;
                 }
 
-                List<Member> members = _controller.SearchMembers(criteria);
+                List<Member> members = _manageController.SearchMembers(criteria);
                 memberSearchUserControl1.SetDataSource(members);
 
                 if (members.Count == 0)
@@ -87,7 +89,12 @@ namespace KLS_Furniture.UserControls
         /// </summary>
         private void MemberSearchUserControl_MemberSelected(object sender, Member selectedMember)
         {
-            //TODO: Implement select functionality
+            _selectedMember = selectedMember;
+
+            if (HistoryTabControl.SelectedTab.Name == "RentalTabPage")
+                PopulateRentalTable();
+            else
+                PopulateReturnTable();
         }
 
         /// <summary>
@@ -96,6 +103,79 @@ namespace KLS_Furniture.UserControls
         private void ClearSearchUI()
         {
             memberSearchUserControl1.Clear();
+            _selectedMember = null;
+            RentalDataGridView.DataSource = null;
+            ReturnDataGridView.DataSource = null;
+        }
+
+        /// <summary>
+        /// Handles tab change to load data for the visible tab
+        /// </summary>
+        private void HandleTabClick_SelectedIndexChange(object sender, EventArgs e)
+        {
+            if (_selectedMember == null) return;
+
+            if (HistoryTabControl.SelectedTab.Name == "RentalTabPage")
+            {
+                PopulateRentalTable();
+            }
+            else
+            {
+                PopulateReturnTable();
+            }
+        }
+
+        /// <summary>
+        /// Populates the Rental DataGridView
+        /// </summary>
+        private void PopulateRentalTable()
+        {
+            if (_selectedMember == null) return;
+
+            try
+            {
+                var rentals = _historyController.GetMemberRentalHistory(_selectedMember.MemberId);
+                RentalDataGridView.DataSource = rentals;
+
+                RentalDataGridView.AutoGenerateColumns = true;
+
+                RentalDataGridView.Columns["RentalTransactionId"].HeaderText = "Rental #";
+                RentalDataGridView.Columns["RentalDate"].HeaderText = "Rental Date";
+                RentalDataGridView.Columns["DueDate"].HeaderText = "Due Date";
+                RentalDataGridView.Columns["FurnitureName"].HeaderText = "Furniture Item";
+                RentalDataGridView.Columns["CategoryName"].HeaderText = "Category";
+                RentalDataGridView.Columns["Quantity"].HeaderText = "Qty";
+                RentalDataGridView.Columns["DailyRateAtRent"].HeaderText = "Daily Rate";
+                RentalDataGridView.Columns["LineTotal"].HeaderText = "Line Total";
+
+                RentalDataGridView.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Failed to load rental history: " + ex.Message, "Error",
+                                MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        /// <summary>
+        /// Populates the Return DataGridView
+        /// </summary>
+        private void PopulateReturnTable()
+        {
+            if (_selectedMember == null) return;
+
+            try
+            {
+                //var returns = _manageController.GetReturnsForMember(_selectedMember.MemberId);
+                //ReturnDataGridView.DataSource = returns;
+                ReturnDataGridView.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Failed to load return history: " + ex.Message, "Error",
+                                MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
     }
 }

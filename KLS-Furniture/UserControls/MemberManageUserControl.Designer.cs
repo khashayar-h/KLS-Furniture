@@ -32,21 +32,23 @@
             this.MemberMangeTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.MemberManageLabel = new System.Windows.Forms.Label();
             this.MemberDetailsControl = new KLS_Furniture.UserControls.MemberDetailsUserControl();
+            this.memberSearchUserControl1 = new KLS_Furniture.UserControls.MemberSearchUserControl();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.zzToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.memberSearchUserControl1 = new KLS_Furniture.UserControls.MemberSearchUserControl();
             this.MemberMangeTableLayoutPanel.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // MemberMangeTableLayoutPanel
             // 
+            this.MemberMangeTableLayoutPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.MemberMangeTableLayoutPanel.ColumnCount = 1;
             this.MemberMangeTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.MemberMangeTableLayoutPanel.Controls.Add(this.MemberManageLabel, 0, 0);
             this.MemberMangeTableLayoutPanel.Controls.Add(this.MemberDetailsControl, 0, 3);
             this.MemberMangeTableLayoutPanel.Controls.Add(this.memberSearchUserControl1, 0, 1);
-            this.MemberMangeTableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.MemberMangeTableLayoutPanel.Location = new System.Drawing.Point(0, 0);
             this.MemberMangeTableLayoutPanel.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.MemberMangeTableLayoutPanel.Name = "MemberMangeTableLayoutPanel";
@@ -72,14 +74,31 @@
             // 
             // MemberDetailsControl
             // 
+            this.MemberDetailsControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.MemberDetailsControl.AutoSize = true;
             this.MemberDetailsControl.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.MemberDetailsControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.MemberDetailsControl.Location = new System.Drawing.Point(4, 469);
             this.MemberDetailsControl.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.MemberDetailsControl.Name = "MemberDetailsControl";
             this.MemberDetailsControl.Size = new System.Drawing.Size(781, 330);
             this.MemberDetailsControl.TabIndex = 1;
+            // 
+            // memberSearchUserControl1
+            // 
+            this.memberSearchUserControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.memberSearchUserControl1.FirstNameText = "";
+            this.memberSearchUserControl1.LastNameText = "";
+            this.memberSearchUserControl1.Location = new System.Drawing.Point(3, 32);
+            this.memberSearchUserControl1.MemberIdText = "";
+            this.memberSearchUserControl1.Name = "memberSearchUserControl1";
+            this.memberSearchUserControl1.PhoneText = "";
+            this.MemberMangeTableLayoutPanel.SetRowSpan(this.memberSearchUserControl1, 2);
+            this.memberSearchUserControl1.Size = new System.Drawing.Size(783, 429);
+            this.memberSearchUserControl1.TabIndex = 2;
             // 
             // contextMenuStrip1
             // 
@@ -94,18 +113,6 @@
             this.zzToolStripMenuItem.Name = "zzToolStripMenuItem";
             this.zzToolStripMenuItem.Size = new System.Drawing.Size(92, 24);
             this.zzToolStripMenuItem.Text = "zz";
-            // 
-            // memberSearchUserControl1
-            // 
-            this.memberSearchUserControl1.FirstNameText = "";
-            this.memberSearchUserControl1.LastNameText = "";
-            this.memberSearchUserControl1.Location = new System.Drawing.Point(3, 32);
-            this.memberSearchUserControl1.MemberIdText = "";
-            this.memberSearchUserControl1.Name = "memberSearchUserControl1";
-            this.memberSearchUserControl1.PhoneText = "";
-            this.MemberMangeTableLayoutPanel.SetRowSpan(this.memberSearchUserControl1, 2);
-            this.memberSearchUserControl1.Size = new System.Drawing.Size(783, 429);
-            this.memberSearchUserControl1.TabIndex = 2;
             // 
             // MemberManageUserControl
             // 

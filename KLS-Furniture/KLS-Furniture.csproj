@@ -166,9 +166,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controller\AuthController.cs" />
+    <Compile Include="Controller\MemberHistoryController.cs" />
     <Compile Include="Controller\MemberManagementController.cs" />
     <Compile Include="DAL\EmployeeDBDAL.cs" />
     <Compile Include="DAL\KLSFurnitureDBConnection.cs" />
+    <Compile Include="DAL\MemberHistoryDBDAL.cs" />
     <Compile Include="DAL\MemberManagementDBDAL.cs" />
     <Compile Include="Model\CurrentSession.cs" />
     <Compile Include="Model\Entities\Employee.cs" />
@@ -182,6 +184,7 @@
     <Compile Include="Model\Entities\ReturnTransactionItem.cs" />
     <Compile Include="Model\Lookups\LoggedInUserLookupItem.cs" />
     <Compile Include="Model\Lookups\MemberSearchCriteria.cs" />
+    <Compile Include="Model\Lookups\RentalItem.cs" />
     <Compile Include="UserControls\MemberDetailsUserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
