@@ -44,6 +44,7 @@ namespace KLS_Furniture
             foreach (Control control in ContentPanel.Controls)
             {
                 control.Visible = false;
+                control.Dock = DockStyle.Fill;
             }
 
             // Link navigation events to correct form initialization

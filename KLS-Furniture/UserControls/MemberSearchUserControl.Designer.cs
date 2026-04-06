@@ -61,9 +61,10 @@
             this.SearchCriteriaGroupBox.Controls.Add(this.FirstNameSearchLabel);
             this.SearchCriteriaGroupBox.Controls.Add(this.PhoneSearchLabel);
             this.SearchCriteriaGroupBox.Controls.Add(this.MemberIdSearchLabel);
+            this.SearchCriteriaGroupBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.SearchCriteriaGroupBox.Location = new System.Drawing.Point(3, 3);
             this.SearchCriteriaGroupBox.Name = "SearchCriteriaGroupBox";
-            this.SearchCriteriaGroupBox.Size = new System.Drawing.Size(783, 202);
+            this.SearchCriteriaGroupBox.Size = new System.Drawing.Size(786, 202);
             this.SearchCriteriaGroupBox.TabIndex = 1;
             this.SearchCriteriaGroupBox.TabStop = false;
             // 
