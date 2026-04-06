@@ -47,32 +47,39 @@ namespace KLS_Furniture.UserControls
             MembersDataGridView.AutoGenerateColumns = false;
             MembersDataGridView.Columns.Clear();
 
+            MembersDataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.None;
+            MembersDataGridView.ScrollBars = ScrollBars.Both;
+
             MembersDataGridView.Columns.Add(new DataGridViewTextBoxColumn
             {
                 Name = "MemberIdColumn",
                 HeaderText = "Member ID",
-                DataPropertyName = "MemberId"
+                DataPropertyName = "MemberId",
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
             });
 
             MembersDataGridView.Columns.Add(new DataGridViewTextBoxColumn
             {
                 Name = "FirstNameColumn",
                 HeaderText = "First Name",
-                DataPropertyName = "FirstName"
+                DataPropertyName = "FirstName",
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
             });
 
             MembersDataGridView.Columns.Add(new DataGridViewTextBoxColumn
             {
                 Name = "LastNameColumn",
                 HeaderText = "Last Name",
-                DataPropertyName = "LastName"
+                DataPropertyName = "LastName",
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
             });
 
             MembersDataGridView.Columns.Add(new DataGridViewTextBoxColumn
             {
                 Name = "PhoneColumn",
                 HeaderText = "Phone",
-                DataPropertyName = "Phone"
+                DataPropertyName = "Phone",
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
             });
 
             MembersDataGridView.Columns.Add(new DataGridViewTextBoxColumn
@@ -80,14 +87,16 @@ namespace KLS_Furniture.UserControls
                 Name = "DateOfBirthColumn",
                 HeaderText = "Date of Birth",
                 DataPropertyName = "DateOfBirth",
-                DefaultCellStyle = new DataGridViewCellStyle { Format = "d" }
+                DefaultCellStyle = new DataGridViewCellStyle { Format = "d" },
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
             });
 
             MembersDataGridView.Columns.Add(new DataGridViewTextBoxColumn
             {
                 Name = "AddressColumn",
                 HeaderText = "Address",
-                DataPropertyName = "FullAddress"
+                DataPropertyName = "FullAddress",
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells,
             });
 
             MembersDataGridView.DataSource = _memberBindingSource;
@@ -95,24 +104,36 @@ namespace KLS_Furniture.UserControls
 
         #region Public Properties for Designer / Easy Binding
 
+        /// <summary>
+        /// Public setter/getter method for member id text
+        /// </summary>
         public string MemberIdText
         {
             get => MemberIdSearchTextBox.Text;
             set => MemberIdSearchTextBox.Text = value ?? "";
         }
 
+        /// <summary>
+        /// Public setter/getter method for first name text
+        /// </summary>
         public string FirstNameText
         {
             get => FirstNameSearchTextBox.Text;
             set => FirstNameSearchTextBox.Text = value ?? "";
         }
 
+        /// <summary>
+        /// Public setter/getter method for last name text
+        /// </summary>
         public string LastNameText
         {
             get => LastNameSearchTextBox.Text;
             set => LastNameSearchTextBox.Text = value ?? "";
         }
 
+        /// <summary>
+        /// Public setter/getter method for phone text
+        /// </summary>
         public string PhoneText
         {
             get => PhoneSearchTextBox.Text;
