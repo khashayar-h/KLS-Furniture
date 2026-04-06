@@ -1,5 +1,7 @@
 ﻿using KLS_Furniture.Controller;
 using KLS_Furniture.Model;
+using KLS_Furniture.Model.Entities;
+using KLS_Furniture.Model.Lookups;
 using KLS_Furniture.UserControls;
 using KLS_Furniture.View;
 using System;
@@ -49,10 +51,19 @@ namespace KLS_Furniture
             navUserControl1.FurnitureRentalClicked += Nav_FurnitureRentalClicked;
             navUserControl1.ReturnsClicked += Nav_ReturnClicked;
             navUserControl1.MemberHistoryClicked += Nav_MemberHistoryClicked;
-            navUserControl1.AdminReportsClicked += Nav_AdminReportsClicked;
 
-            //Set first tab as active
-            navUserControl1.SetActiveTab("membermanagement");
+            LoggedInUserLookupItem currentUser = authController.GetCurrentUser();
+
+            if (currentUser.IsAdmin)
+            {
+                navUserControl1.AdminReportsClicked += Nav_AdminReportsClicked;
+            }
+            else
+            {
+                navUserControl1.HideAdminFunctions();
+            }
+                //Set first tab as active
+                navUserControl1.SetActiveTab("membermanagement");
             //Calls Member Management as starting content
             this.ShowContent(memberManageUserControl);
         }
