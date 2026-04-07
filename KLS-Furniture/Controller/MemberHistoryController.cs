@@ -25,9 +25,14 @@ namespace KLS_Furniture.Controller
             this._memberHistoryDAL = new MemberHistoryDBDAL();
         }
 
-        public List<RentalItem> GetMemberRentalHistory(int memberId)
+        public List<RentalHistoryItem> GetMemberRentalHistory(int memberId)
         {
             return _memberHistoryDAL.GetMemberRentalHistory(memberId);
-        } 
+        }
+
+        public List<ReturnHistoryItem> GetMemberReturnHistory(int memberId)
+        {
+            return _memberHistoryDAL.GetMemberReturnHistory(memberId);
+        }
     }
 }

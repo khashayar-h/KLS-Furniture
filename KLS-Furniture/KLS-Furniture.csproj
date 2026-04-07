@@ -184,7 +184,8 @@
     <Compile Include="Model\Entities\ReturnTransactionItem.cs" />
     <Compile Include="Model\Lookups\LoggedInUserLookupItem.cs" />
     <Compile Include="Model\Lookups\MemberSearchCriteria.cs" />
-    <Compile Include="Model\Lookups\RentalItem.cs" />
+    <Compile Include="Model\Lookups\RentalHistoryItem.cs" />
+    <Compile Include="Model\Lookups\ReturnHistoryItem.cs" />
     <Compile Include="UserControls\MemberDetailsUserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>

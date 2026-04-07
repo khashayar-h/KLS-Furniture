@@ -98,7 +98,7 @@ namespace KLS_Furniture.UserControls
         }
 
         /// <summary>
-        /// Clears search fields, grid, and details panel.
+        /// Clears search fields, grid, and datagrids.
         /// </summary>
         private void ClearSearchUI()
         {
@@ -142,9 +142,13 @@ namespace KLS_Furniture.UserControls
                 RentalDataGridView.Columns["RentalTransactionId"].HeaderText = "Rental #";
                 RentalDataGridView.Columns["RentalDate"].HeaderText = "Rental Date";
                 RentalDataGridView.Columns["DueDate"].HeaderText = "Due Date";
+                RentalDataGridView.Columns["MemberId"].HeaderText = "Member Id";
+                RentalDataGridView.Columns["EmployeeId"].HeaderText = "Employee Id";
+                RentalDataGridView.Columns["FurnitureId"].HeaderText = "Furniture Id";
                 RentalDataGridView.Columns["FurnitureName"].HeaderText = "Furniture Item";
                 RentalDataGridView.Columns["CategoryName"].HeaderText = "Category";
                 RentalDataGridView.Columns["Quantity"].HeaderText = "Qty";
+                RentalDataGridView.Columns["DaysRented"].HeaderText = "Days Rented";
                 RentalDataGridView.Columns["DailyRateAtRent"].HeaderText = "Daily Rate";
                 RentalDataGridView.Columns["LineTotal"].HeaderText = "Line Total";
 
@@ -167,8 +171,21 @@ namespace KLS_Furniture.UserControls
 
             try
             {
-                //var returns = _manageController.GetReturnsForMember(_selectedMember.MemberId);
-                //ReturnDataGridView.DataSource = returns;
+                var returns = _historyController.GetMemberReturnHistory(_selectedMember.MemberId);
+                ReturnDataGridView.DataSource = returns;
+
+                ReturnDataGridView.Columns["ReturnTransactionId"].HeaderText = "Return #";
+                ReturnDataGridView.Columns["ReturnDate"].HeaderText = "Return Date";
+                ReturnDataGridView.Columns["RentalTransactionId"].HeaderText = "Orig. Rental #";
+                ReturnDataGridView.Columns["EmployeeId"].HeaderText = "Employee Id";
+                ReturnDataGridView.Columns["FurnitureId"].HeaderText = "Furniture Id";
+                ReturnDataGridView.Columns["FurnitureName"].HeaderText = "Furniture Item";
+                ReturnDataGridView.Columns["CategoryName"].HeaderText = "Category";
+                ReturnDataGridView.Columns["QuantityReturned"].HeaderText = "Qty Returned";
+                ReturnDataGridView.Columns["FineAmount"].HeaderText = "Fine";
+                ReturnDataGridView.Columns["RefundAmount"].HeaderText = "Refund";
+                ReturnDataGridView.Columns["NetAmount"].HeaderText = "Net Amount";
+
                 ReturnDataGridView.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
             }
             catch (Exception ex)

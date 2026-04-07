@@ -5,7 +5,7 @@ namespace KLS_Furniture.Model.Lookups
     /// <summary>
     /// Represents one line item from a rental transaction.
     /// </summary>
-    public class RentalItem
+    public class RentalHistoryItem
     {
         public int RentalTransactionId { get; set; }
         public DateTime RentalDate { get; set; }
