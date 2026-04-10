@@ -1,4 +1,5 @@
 ﻿using KLS_Furniture.Model.Rental;
+using KLS_Furniture.Model.Lookups;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -231,6 +232,208 @@ namespace KLS_Furniture.DAL
             }
 
             return furniture;
+        }
+
+        /// <summary>
+        /// Returns all furniture categories for the rental search screen.
+        /// </summary>
+        public List<IdNameLookupItem> GetCategories()
+        {
+            List<IdNameLookupItem> categories = new List<IdNameLookupItem>();
+
+            const string sql = @"
+                SELECT category_id, category_name
+                FROM dbo.furniture_categories
+                ORDER BY category_name;";
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(_cs))
+                using (SqlCommand cmd = new SqlCommand(sql, conn))
+                {
+                    conn.Open();
+
+                    using (SqlDataReader r = cmd.ExecuteReader())
+                    {
+                        while (r.Read())
+                        {
+                            categories.Add(new IdNameLookupItem
+                            {
+                                Id = r.GetInt32(r.GetOrdinal("category_id")),
+                                Name = r.GetString(r.GetOrdinal("category_name"))
+                            });
+                        }
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw new DataException("A database error occurred while loading categories.", ex);
+            }
+
+            return categories;
+        }
+
+        /// <summary>
+        /// Returns all furniture styles for the rental search screen.
+        /// </summary>
+        public List<IdNameLookupItem> GetStyles()
+        {
+            List<IdNameLookupItem> styles = new List<IdNameLookupItem>();
+
+            const string sql = @"
+                SELECT style_id, style_name
+                FROM dbo.furniture_styles
+                ORDER BY style_name;";
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(_cs))
+                using (SqlCommand cmd = new SqlCommand(sql, conn))
+                {
+                    conn.Open();
+
+                    using (SqlDataReader r = cmd.ExecuteReader())
+                    {
+                        while (r.Read())
+                        {
+                            styles.Add(new IdNameLookupItem
+                            {
+                                Id = r.GetInt32(r.GetOrdinal("style_id")),
+                                Name = r.GetString(r.GetOrdinal("style_name"))
+                            });
+                        }
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw new DataException("A database error occurred while loading styles.", ex);
+            }
+
+            return styles;
+        }
+
+        /// <summary>
+        /// Returns members for the customer combo box on the rental screen.
+        /// </summary>
+        public List<RentalMemberLookupItem> GetMembersForRental()
+        {
+            List<RentalMemberLookupItem> members = new List<RentalMemberLookupItem>();
+
+            const string sql = @"
+                SELECT member_id, first_name, last_name, phone
+                FROM dbo.members
+                ORDER BY last_name, first_name;";
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(_cs))
+                using (SqlCommand cmd = new SqlCommand(sql, conn))
+                {
+                    conn.Open();
+
+                    using (SqlDataReader r = cmd.ExecuteReader())
+                    {
+                        while (r.Read())
+                        {
+                            string phone = r["phone"] == DBNull.Value ? "" : r["phone"].ToString();
+
+                            members.Add(new RentalMemberLookupItem
+                            {
+                                MemberId = r.GetInt32(r.GetOrdinal("member_id")),
+                                DisplayText = r["last_name"].ToString() + ", " +
+                                              r["first_name"].ToString() +
+                                              " (ID: " + r["member_id"].ToString() +
+                                              ", Phone: " + phone + ")"
+                            });
+                        }
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw new DataException("A database error occurred while loading members.", ex);
+            }
+
+            return members;
+        }
+
+        /// <summary>
+        /// Searches furniture by optional furniture id, category, and style.
+        /// </summary>
+        public List<FurnitureSearchResultItem> SearchFurniture(int? furnitureId, int? categoryId, int? styleId)
+        {
+            List<FurnitureSearchResultItem> items = new List<FurnitureSearchResultItem>();
+
+            string sql = @"
+                SELECT 
+                    f.furniture_id,
+                    f.name,
+                    c.category_name,
+                    s.style_name,
+                    f.daily_rate,
+                    f.quantity
+                FROM dbo.furniture f
+                INNER JOIN dbo.furniture_categories c
+                    ON f.category_id = c.category_id
+                INNER JOIN dbo.furniture_styles s
+                    ON f.style_id = s.style_id
+                WHERE 1 = 1";
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(_cs))
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.Connection = conn;
+
+                    if (furnitureId.HasValue)
+                    {
+                        sql += " AND f.furniture_id = @FurnitureId";
+                        cmd.Parameters.Add("@FurnitureId", SqlDbType.Int).Value = furnitureId.Value;
+                    }
+
+                    if (categoryId.HasValue)
+                    {
+                        sql += " AND f.category_id = @CategoryId";
+                        cmd.Parameters.Add("@CategoryId", SqlDbType.Int).Value = categoryId.Value;
+                    }
+
+                    if (styleId.HasValue)
+                    {
+                        sql += " AND f.style_id = @StyleId";
+                        cmd.Parameters.Add("@StyleId", SqlDbType.Int).Value = styleId.Value;
+                    }
+
+                    sql += " ORDER BY f.furniture_id;";
+                    cmd.CommandText = sql;
+
+                    conn.Open();
+
+                    using (SqlDataReader r = cmd.ExecuteReader())
+                    {
+                        while (r.Read())
+                        {
+                            items.Add(new FurnitureSearchResultItem
+                            {
+                                FurnitureId = r.GetInt32(r.GetOrdinal("furniture_id")),
+                                Name = r.GetString(r.GetOrdinal("name")),
+                                CategoryName = r.GetString(r.GetOrdinal("category_name")),
+                                StyleName = r.GetString(r.GetOrdinal("style_name")),
+                                DailyRate = r.GetDecimal(r.GetOrdinal("daily_rate")),
+                                QuantityAvailable = r.GetInt32(r.GetOrdinal("quantity"))
+                            });
+                        }
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw new DataException("A database error occurred while searching furniture.", ex);
+            }
+
+            return items;
         }
 
         private bool MemberExists(int memberId)
