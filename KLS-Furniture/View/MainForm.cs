@@ -18,6 +18,7 @@ namespace KLS_Furniture
         //Creates instance of user controls to be used in Content Panel
         private readonly MemberManageUserControl memberManageUserControl = new MemberManageUserControl();
         private readonly MemberHistoryUserControl memberHistoryUserControl = new MemberHistoryUserControl();
+        private readonly FurnitureRentalUserControl furnitureRentalUserControl = new FurnitureRentalUserControl();
 
         private UserControl currentScreen;
 
@@ -39,6 +40,7 @@ namespace KLS_Furniture
             //Add user controls to content panel
             this.ContentPanel.Controls.Add(memberManageUserControl);
             this.ContentPanel.Controls.Add(memberHistoryUserControl);
+            this.ContentPanel.Controls.Add(furnitureRentalUserControl);
 
             //Will need to hide additional panels when added
             foreach (Control control in ContentPanel.Controls)
@@ -91,8 +93,7 @@ namespace KLS_Furniture
         private void Nav_FurnitureRentalClicked(object sender, EventArgs e)
         {
             navUserControl1.SetActiveTab("furniturerental");
-            // Todo: Update with correct user control
-            //this.ShowContent(); 
+            this.ShowContent(furnitureRentalUserControl);
         }
 
         private void Nav_ReturnClicked(object sender, EventArgs e)
