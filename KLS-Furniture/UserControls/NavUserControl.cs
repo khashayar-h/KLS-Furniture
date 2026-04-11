@@ -87,5 +87,10 @@ namespace KLS_Furniture.UserControls
                     break;
             }
         }
+
+        public void HideAdminFunctions()
+        {
+            AdminReportNavButton.Hide();
+        }
     }
 }

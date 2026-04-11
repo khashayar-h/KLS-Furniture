@@ -1,5 +1,7 @@
 ﻿using KLS_Furniture.Controller;
 using KLS_Furniture.Model;
+using KLS_Furniture.Model.Entities;
+using KLS_Furniture.Model.Lookups;
 using KLS_Furniture.UserControls;
 using KLS_Furniture.View;
 using System;
@@ -15,6 +17,7 @@ namespace KLS_Furniture
     {
         //Creates instance of user controls to be used in Content Panel
         private readonly MemberManageUserControl memberManageUserControl = new MemberManageUserControl();
+        private readonly MemberHistoryUserControl memberHistoryUserControl = new MemberHistoryUserControl();
 
         private UserControl currentScreen;
 
@@ -35,11 +38,13 @@ namespace KLS_Furniture
 
             //Add user controls to content panel
             this.ContentPanel.Controls.Add(memberManageUserControl);
+            this.ContentPanel.Controls.Add(memberHistoryUserControl);
 
             //Will need to hide additional panels when added
             foreach (Control control in ContentPanel.Controls)
             {
                 control.Visible = false;
+                control.Dock = DockStyle.Fill;
             }
 
             // Link navigation events to correct form initialization
@@ -47,10 +52,19 @@ namespace KLS_Furniture
             navUserControl1.FurnitureRentalClicked += Nav_FurnitureRentalClicked;
             navUserControl1.ReturnsClicked += Nav_ReturnClicked;
             navUserControl1.MemberHistoryClicked += Nav_MemberHistoryClicked;
-            navUserControl1.AdminReportsClicked += Nav_AdminReportsClicked;
 
-            //Set first tab as active
-            navUserControl1.SetActiveTab("membermanagement");
+            LoggedInUserLookupItem currentUser = authController.GetCurrentUser();
+
+            if (currentUser.IsAdmin)
+            {
+                navUserControl1.AdminReportsClicked += Nav_AdminReportsClicked;
+            }
+            else
+            {
+                navUserControl1.HideAdminFunctions();
+            }
+                //Set first tab as active
+                navUserControl1.SetActiveTab("membermanagement");
             //Calls Member Management as starting content
             this.ShowContent(memberManageUserControl);
         }
@@ -92,7 +106,7 @@ namespace KLS_Furniture
         {
             navUserControl1.SetActiveTab("memberhistory");
             // Todo: Update with correct user control
-            //this.ShowContent();
+            this.ShowContent(memberHistoryUserControl);
         }
 
         private void Nav_AdminReportsClicked(object sender, EventArgs e)

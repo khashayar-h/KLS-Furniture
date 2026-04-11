@@ -4,6 +4,7 @@ using KLS_Furniture.Utils;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
+using static System.Net.WebRequestMethods;
 
 
 namespace KLS_Furniture.UserControls
@@ -38,6 +39,13 @@ namespace KLS_Furniture.UserControls
             this.EditMemberButton.Enabled = false;
             this.SaveMemberButton.Enabled = false;
             this.BindUpdateClears();
+            this.DOBDateTimePicker.Enter += (s, e) =>
+            {
+                if (this.DOBDateTimePicker.Format == DateTimePickerFormat.Custom)
+                {
+                    this.ShowNormalDatePicker();
+                }
+            };
 
         }
 
@@ -73,7 +81,8 @@ namespace KLS_Furniture.UserControls
             this.FirstNameTextBox.Text = member.FirstName;
             this.LastNameTextBox.Text = member.LastName;
             this.PhoneTextBox.Text = member.Phone;
-            this.DOBTextBox.Text = member.DateOfBirth.ToShortDateString();
+            this.DOBDateTimePicker.Value = member.DateOfBirth;
+            this.ShowNormalDatePicker();
             this.GenderComboBox.SelectedValue = member.Sex;
             this.AddressTextBox.Text = member.AddressLine1;
             this.AddLine2TextBox.Text = member.AddressLine2;
@@ -120,7 +129,7 @@ namespace KLS_Furniture.UserControls
                 FirstName = this.FirstNameTextBox.Text.Trim(),
                 LastName = this.LastNameTextBox.Text.Trim(),
                 Phone = this.PhoneTextBox.Text.Trim(),
-                DateOfBirth = DateTime.Parse(this.DOBTextBox.Text),
+                DateOfBirth = this.DOBDateTimePicker.Value,
                 Sex = this.GenderComboBox.SelectedValue?.ToString(),
                 AddressLine1 = this.AddressTextBox.Text.Trim(),
                 AddressLine2 = this.AddLine2TextBox.Text.Trim(),
@@ -220,7 +229,7 @@ namespace KLS_Furniture.UserControls
             this.FirstNameTextBox.Enabled = true;
             this.LastNameTextBox.Enabled = true;
             this.PhoneTextBox.Enabled = true;
-            this.DOBTextBox.Enabled = true;
+            this.DOBDateTimePicker.Enabled = true;
             this.AddressTextBox.Enabled = true;
             this.ZipTextBox.Enabled = true;
             this.GenderComboBox.Enabled = true;
@@ -234,7 +243,7 @@ namespace KLS_Furniture.UserControls
             this.FirstNameTextBox.Enabled = false;
             this.LastNameTextBox.Enabled = false;
             this.PhoneTextBox.Enabled = false;
-            this.DOBTextBox.Enabled = false;
+            this.DOBDateTimePicker.Enabled = false;
             this.AddressTextBox.Enabled = false;
             this.ZipTextBox.Enabled = false;
             this.GenderComboBox.Enabled = false;
@@ -263,7 +272,7 @@ namespace KLS_Furniture.UserControls
             this.FirstNameTextBox.Clear();
             this.LastNameTextBox.Clear();
             this.PhoneTextBox.Clear();
-            this.DOBTextBox.Clear();
+            this.ClearDatePicker();
             this.AddressTextBox.Clear();
             this.AddLine2TextBox.Clear();
             this.CityTextBox.Clear();
@@ -272,12 +281,25 @@ namespace KLS_Furniture.UserControls
             this.StateComboBox.SelectedIndex = -1;
         }
 
+        private void ClearDatePicker()
+        {
+            this.DOBDateTimePicker.Format = DateTimePickerFormat.Custom;
+            this.DOBDateTimePicker.CustomFormat = " ";
+            this.DOBDateTimePicker.Value = DateTime.Today;
+        }
+
+        private void ShowNormalDatePicker()
+        {
+            this.DOBDateTimePicker.Format = DateTimePickerFormat.Short;
+            this.DOBDateTimePicker.CustomFormat = null;
+        }
+
         private void BindUpdateClears()
         {
             this.FirstNameTextBox.TextChanged += (s, e) => this.ClearLabels();
             this.LastNameTextBox.TextChanged += (s, e) => this.ClearLabels();
             this.PhoneTextBox.TextChanged += (s, e) => this.ClearLabels();
-            this.DOBTextBox.TextChanged += (s, e) => this.ClearLabels();
+            this.DOBDateTimePicker.TextChanged += (s, e) => this.ClearLabels();
             this.AddressTextBox.TextChanged += (s, e) => this.ClearLabels();
             this.AddLine2TextBox.TextChanged += (s, e) => this.ClearLabels();
             this.CityTextBox.TextChanged += (s, e) => this.ClearLabels();
@@ -315,7 +337,14 @@ namespace KLS_Furniture.UserControls
             }
 
             // DOB
-            if (!DateTime.TryParse(this.DOBTextBox.Text, out DateTime dob) || dob > DateTime.Today.AddYears(-18))
+            if (this.DOBDateTimePicker.Format == DateTimePickerFormat.Custom &&
+                this.DOBDateTimePicker.CustomFormat == " ")
+            {
+                this.DOBErrorLabel.Text = "Date of birth is required (Must be 18+)";
+                isValid = false;
+            }
+            else if (!DateTime.TryParse(this.DOBDateTimePicker.Text, out DateTime dob) ||
+                     dob > DateTime.Today.AddYears(-18))
             {
                 this.DOBErrorLabel.Text = "Valid date of birth required (Must be 18+)";
                 isValid = false;

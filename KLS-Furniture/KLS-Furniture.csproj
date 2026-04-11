@@ -166,9 +166,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controller\AuthController.cs" />
+    <Compile Include="Controller\MemberHistoryController.cs" />
     <Compile Include="Controller\MemberManagementController.cs" />
     <Compile Include="DAL\EmployeeDBDAL.cs" />
     <Compile Include="DAL\KLSFurnitureDBConnection.cs" />
+    <Compile Include="DAL\MemberHistoryDBDAL.cs" />
     <Compile Include="DAL\MemberManagementDBDAL.cs" />
     <Compile Include="DAL\RentalDBDAL.cs" />
     <Compile Include="Model\CurrentSession.cs" />
@@ -183,23 +185,39 @@
     <Compile Include="Model\Entities\ReturnTransactionItem.cs" />
     <Compile Include="Model\Lookups\LoggedInUserLookupItem.cs" />
     <Compile Include="Model\Lookups\MemberSearchCriteria.cs" />
+
     <Compile Include="Model\Lookups\RentalFurnitureLookupItem.cs" />
     <Compile Include="Model\Rental\RentalCalculator.cs" />
     <Compile Include="Model\Rental\RentalDebugRunner.cs" />
     <Compile Include="Model\Rental\RentalItemInput.cs" />
     <Compile Include="Model\Rental\RentalSaveRequest.cs" />
     <Compile Include="Model\Rental\RentalSaveResult.cs" />
+    <Compile Include="Model\Lookups\RentalHistoryItem.cs" />
+    <Compile Include="Model\Lookups\ReturnHistoryItem.cs" />
+
     <Compile Include="UserControls\MemberDetailsUserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="UserControls\MemberDetailsUserControl.Designer.cs">
       <DependentUpon>MemberDetailsUserControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\MemberHistoryUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\MemberHistoryUserControl.Designer.cs">
+      <DependentUpon>MemberHistoryUserControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\MemberManageUserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="UserControls\MemberManageUserControl.Designer.cs">
       <DependentUpon>MemberManageUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\MemberSearchUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\MemberSearchUserControl.Designer.cs">
+      <DependentUpon>MemberSearchUserControl.cs</DependentUpon>
     </Compile>
     <Compile Include="UserControls\NavUserControl.cs">
       <SubType>UserControl</SubType>
@@ -235,8 +253,14 @@
     <EmbeddedResource Include="UserControls\MemberDetailsUserControl.resx">
       <DependentUpon>MemberDetailsUserControl.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\MemberHistoryUserControl.resx">
+      <DependentUpon>MemberHistoryUserControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UserControls\MemberManageUserControl.resx">
       <DependentUpon>MemberManageUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\MemberSearchUserControl.resx">
+      <DependentUpon>MemberSearchUserControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\NavUserControl.resx">
       <DependentUpon>NavUserControl.cs</DependentUpon>
@@ -257,6 +281,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -264,10 +289,10 @@
   <ItemGroup>
     <Content Include="App_Data\KLSFurniture.ldf">
       <DependentUpon>KLSFurniture.mdf</DependentUpon>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="App_Data\KLSFurniture.mdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="DB\data.sql" />
     <Content Include="DB\schema.sql" />

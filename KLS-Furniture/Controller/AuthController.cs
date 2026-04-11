@@ -24,6 +24,7 @@ namespace KLS_Furniture.Controller
         /// </summary>
         public bool Login(string username, string password)
         {
+            //return employeeDBDAL.UpdatePassword(username, password);
             LoggedInUserLookupItem user = employeeDBDAL.AuthenticateUser(username, password);
 
             if (user == null)

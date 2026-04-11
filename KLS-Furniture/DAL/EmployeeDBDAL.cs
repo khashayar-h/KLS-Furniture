@@ -1,4 +1,4 @@
-﻿using KLS_Furniture.Model.Lookups;
+using KLS_Furniture.Model.Lookups;
 using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;

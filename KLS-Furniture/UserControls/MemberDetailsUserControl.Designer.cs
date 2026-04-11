@@ -38,14 +38,11 @@
             this.StateLabel = new System.Windows.Forms.Label();
             this.ZipLabel = new System.Windows.Forms.Label();
             this.ZipTextBox = new System.Windows.Forms.TextBox();
-            this.AddressLabel = new System.Windows.Forms.Label();
-            this.AddressTextBox = new System.Windows.Forms.TextBox();
             this.GenderLabel = new System.Windows.Forms.Label();
             this.GenderComboBox = new System.Windows.Forms.ComboBox();
             this.PhoneLabel = new System.Windows.Forms.Label();
             this.PhoneTextBox = new System.Windows.Forms.TextBox();
             this.DOBLabel = new System.Windows.Forms.Label();
-            this.DOBTextBox = new System.Windows.Forms.TextBox();
             this.CancelMemberButton = new System.Windows.Forms.Button();
             this.SaveMemberButton = new System.Windows.Forms.Button();
             this.EditMemberButton = new System.Windows.Forms.Button();
@@ -55,15 +52,18 @@
             this.PhoneErrorLabel = new System.Windows.Forms.Label();
             this.DOBErrorLabel = new System.Windows.Forms.Label();
             this.GenderErrorLabel = new System.Windows.Forms.Label();
-            this.AddressErrorLabel = new System.Windows.Forms.Label();
             this.StateErrorLabel = new System.Windows.Forms.Label();
             this.ZipErrorLabel = new System.Windows.Forms.Label();
             this.MessageLabel = new System.Windows.Forms.Label();
+            this.AddressLabel = new System.Windows.Forms.Label();
+            this.AddressTextBox = new System.Windows.Forms.TextBox();
+            this.AddressErrorLabel = new System.Windows.Forms.Label();
             this.AddLine2Label = new System.Windows.Forms.Label();
             this.AddLine2TextBox = new System.Windows.Forms.TextBox();
             this.CityLabel = new System.Windows.Forms.Label();
             this.CityTextBox = new System.Windows.Forms.TextBox();
             this.CityErrorLabel = new System.Windows.Forms.Label();
+            this.DOBDateTimePicker = new System.Windows.Forms.DateTimePicker();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -90,7 +90,6 @@
             this.tableLayoutPanel1.Controls.Add(this.PhoneLabel, 0, 3);
             this.tableLayoutPanel1.Controls.Add(this.PhoneTextBox, 1, 3);
             this.tableLayoutPanel1.Controls.Add(this.DOBLabel, 2, 3);
-            this.tableLayoutPanel1.Controls.Add(this.DOBTextBox, 3, 3);
             this.tableLayoutPanel1.Controls.Add(this.CancelMemberButton, 4, 7);
             this.tableLayoutPanel1.Controls.Add(this.SaveMemberButton, 4, 5);
             this.tableLayoutPanel1.Controls.Add(this.EditMemberButton, 4, 3);
@@ -111,6 +110,7 @@
             this.tableLayoutPanel1.Controls.Add(this.CityLabel, 2, 7);
             this.tableLayoutPanel1.Controls.Add(this.CityTextBox, 3, 7);
             this.tableLayoutPanel1.Controls.Add(this.CityErrorLabel, 2, 8);
+            this.tableLayoutPanel1.Controls.Add(this.DOBDateTimePicker, 3, 3);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -219,24 +219,6 @@
             this.ZipTextBox.Size = new System.Drawing.Size(152, 22);
             this.ZipTextBox.TabIndex = 20;
             // 
-            // AddressLabel
-            // 
-            this.AddressLabel.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.AddressLabel.AutoSize = true;
-            this.AddressLabel.Location = new System.Drawing.Point(258, 129);
-            this.AddressLabel.Name = "AddressLabel";
-            this.AddressLabel.Size = new System.Drawing.Size(61, 16);
-            this.AddressLabel.TabIndex = 11;
-            this.AddressLabel.Text = "Address:";
-            // 
-            // AddressTextBox
-            // 
-            this.AddressTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.AddressTextBox.Location = new System.Drawing.Point(354, 126);
-            this.AddressTextBox.Name = "AddressTextBox";
-            this.AddressTextBox.Size = new System.Drawing.Size(152, 22);
-            this.AddressTextBox.TabIndex = 12;
-            // 
             // GenderLabel
             // 
             this.GenderLabel.Anchor = System.Windows.Forms.AnchorStyles.Left;
@@ -250,6 +232,7 @@
             // GenderComboBox
             // 
             this.GenderComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.GenderComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.GenderComboBox.FormattingEnabled = true;
             this.GenderComboBox.Location = new System.Drawing.Point(92, 125);
             this.GenderComboBox.Name = "GenderComboBox";
@@ -283,14 +266,6 @@
             this.DOBLabel.Size = new System.Drawing.Size(39, 16);
             this.DOBLabel.TabIndex = 7;
             this.DOBLabel.Text = "DOB:";
-            // 
-            // DOBTextBox
-            // 
-            this.DOBTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.DOBTextBox.Location = new System.Drawing.Point(354, 78);
-            this.DOBTextBox.Name = "DOBTextBox";
-            this.DOBTextBox.Size = new System.Drawing.Size(152, 22);
-            this.DOBTextBox.TabIndex = 8;
             // 
             // CancelMemberButton
             // 
@@ -337,6 +312,7 @@
             // StateComboBox
             // 
             this.StateComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.StateComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.StateComboBox.FormattingEnabled = true;
             this.StateComboBox.Location = new System.Drawing.Point(92, 221);
             this.StateComboBox.Name = "StateComboBox";
@@ -403,18 +379,6 @@
             this.GenderErrorLabel.TabIndex = 25;
             this.GenderErrorLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // AddressErrorLabel
-            // 
-            this.AddressErrorLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.AddressErrorLabel.AutoSize = true;
-            this.tableLayoutPanel1.SetColumnSpan(this.AddressErrorLabel, 2);
-            this.AddressErrorLabel.ForeColor = System.Drawing.Color.Red;
-            this.AddressErrorLabel.Location = new System.Drawing.Point(258, 153);
-            this.AddressErrorLabel.Name = "AddressErrorLabel";
-            this.AddressErrorLabel.Size = new System.Drawing.Size(248, 16);
-            this.AddressErrorLabel.TabIndex = 26;
-            this.AddressErrorLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // StateErrorLabel
             // 
             this.StateErrorLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
@@ -449,6 +413,36 @@
             this.MessageLabel.Size = new System.Drawing.Size(167, 16);
             this.MessageLabel.TabIndex = 29;
             this.MessageLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // AddressLabel
+            // 
+            this.AddressLabel.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.AddressLabel.AutoSize = true;
+            this.AddressLabel.Location = new System.Drawing.Point(258, 129);
+            this.AddressLabel.Name = "AddressLabel";
+            this.AddressLabel.Size = new System.Drawing.Size(61, 16);
+            this.AddressLabel.TabIndex = 11;
+            this.AddressLabel.Text = "Address:";
+            // 
+            // AddressTextBox
+            // 
+            this.AddressTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.AddressTextBox.Location = new System.Drawing.Point(354, 126);
+            this.AddressTextBox.Name = "AddressTextBox";
+            this.AddressTextBox.Size = new System.Drawing.Size(152, 22);
+            this.AddressTextBox.TabIndex = 12;
+            // 
+            // AddressErrorLabel
+            // 
+            this.AddressErrorLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.AddressErrorLabel.AutoSize = true;
+            this.tableLayoutPanel1.SetColumnSpan(this.AddressErrorLabel, 2);
+            this.AddressErrorLabel.ForeColor = System.Drawing.Color.Red;
+            this.AddressErrorLabel.Location = new System.Drawing.Point(258, 153);
+            this.AddressErrorLabel.Name = "AddressErrorLabel";
+            this.AddressErrorLabel.Size = new System.Drawing.Size(248, 16);
+            this.AddressErrorLabel.TabIndex = 26;
+            this.AddressErrorLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // AddLine2Label
             // 
@@ -498,6 +492,15 @@
             this.CityErrorLabel.TabIndex = 30;
             this.CityErrorLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // DOBDateTimePicker
+            // 
+            this.DOBDateTimePicker.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.DOBDateTimePicker.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.DOBDateTimePicker.Location = new System.Drawing.Point(354, 78);
+            this.DOBDateTimePicker.Name = "DOBDateTimePicker";
+            this.DOBDateTimePicker.Size = new System.Drawing.Size(152, 22);
+            this.DOBDateTimePicker.TabIndex = 8;
+            // 
             // MemberDetailsUserControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -522,7 +525,6 @@
         private System.Windows.Forms.Label PhoneLabel;
         private System.Windows.Forms.TextBox PhoneTextBox;
         private System.Windows.Forms.Label DOBLabel;
-        private System.Windows.Forms.TextBox DOBTextBox;
         private System.Windows.Forms.Label AddressLabel;
         private System.Windows.Forms.TextBox AddressTextBox;
         private System.Windows.Forms.Label GenderLabel;
@@ -549,5 +551,6 @@
         private System.Windows.Forms.Label CityLabel;
         private System.Windows.Forms.TextBox CityTextBox;
         private System.Windows.Forms.Label CityErrorLabel;
+        private System.Windows.Forms.DateTimePicker DOBDateTimePicker;
     }
 }
