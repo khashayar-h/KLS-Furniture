@@ -13,6 +13,9 @@ namespace KLS_Furniture.UserControls
     public partial class FurnitureRentalUserControl : UserControl
     {
         private readonly RentalController rentalController;
+        private readonly BindingSource furnitureBindingSource;
+        private readonly BindingSource cartBindingSource;
+
         private List<RentalCartRow> cartItems;
         private RentalMemberLookupItem selectedMember;
 
@@ -21,9 +24,19 @@ namespace KLS_Furniture.UserControls
             InitializeComponent();
 
             rentalController = new RentalController();
+            furnitureBindingSource = new BindingSource();
+            cartBindingSource = new BindingSource();
+
             cartItems = new List<RentalCartRow>();
             selectedMember = null;
 
+            ConfigureFurnitureResultsGrid();
+            ConfigureCartGrid();
+            WireUpEvents();
+        }
+
+        private void WireUpEvents()
+        {
             this.Load += FurnitureRentalUserControl_Load;
             btnFindMember.Click += BtnFindMember_Click;
             btnSearch.Click += BtnSearch_Click;
@@ -31,6 +44,111 @@ namespace KLS_Furniture.UserControls
             btnUpdateQty.Click += BtnUpdateQty_Click;
             btnRemoveItem.Click += BtnRemoveItem_Click;
             btnConfirmRental.Click += BtnConfirmRental_Click;
+        }
+
+        private void ConfigureFurnitureResultsGrid()
+        {
+            dgvFurnitureResults.AutoGenerateColumns = false;
+            dgvFurnitureResults.Columns.Clear();
+            dgvFurnitureResults.DataSource = furnitureBindingSource;
+
+            dgvFurnitureResults.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "FurnitureIdColumn",
+                HeaderText = "Furniture ID",
+                DataPropertyName = "FurnitureId",
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
+            });
+
+            dgvFurnitureResults.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "FurnitureNameColumn",
+                HeaderText = "Name",
+                DataPropertyName = "Name",
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
+            });
+
+            dgvFurnitureResults.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "CategoryColumn",
+                HeaderText = "Category",
+                DataPropertyName = "CategoryName",
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
+            });
+
+            dgvFurnitureResults.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "StyleColumn",
+                HeaderText = "Style",
+                DataPropertyName = "StyleName",
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
+            });
+
+            dgvFurnitureResults.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "DailyRateColumn",
+                HeaderText = "Daily Rate",
+                DataPropertyName = "DailyRate",
+                DefaultCellStyle = new DataGridViewCellStyle { Format = "C2" },
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
+            });
+
+            dgvFurnitureResults.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "AvailableQtyColumn",
+                HeaderText = "Available Qty",
+                DataPropertyName = "QuantityAvailable",
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
+            });
+        }
+
+        private void ConfigureCartGrid()
+        {
+            dgvCart.AutoGenerateColumns = false;
+            dgvCart.Columns.Clear();
+            dgvCart.DataSource = cartBindingSource;
+
+            dgvCart.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "CartFurnitureIdColumn",
+                HeaderText = "Furniture ID",
+                DataPropertyName = "FurnitureId",
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
+            });
+
+            dgvCart.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "CartFurnitureNameColumn",
+                HeaderText = "Name",
+                DataPropertyName = "FurnitureName",
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
+            });
+
+            dgvCart.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "CartQuantityColumn",
+                HeaderText = "Qty",
+                DataPropertyName = "Quantity",
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
+            });
+
+            dgvCart.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "CartDailyRateColumn",
+                HeaderText = "Daily Rate",
+                DataPropertyName = "DailyRateAtRent",
+                DefaultCellStyle = new DataGridViewCellStyle { Format = "C2" },
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
+            });
+
+            dgvCart.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "CartLineTotalColumn",
+                HeaderText = "Line Total",
+                DataPropertyName = "LineTotal",
+                DefaultCellStyle = new DataGridViewCellStyle { Format = "C2" },
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
+            });
         }
 
         private void FurnitureRentalUserControl_Load(object sender, EventArgs e)
@@ -75,9 +193,6 @@ namespace KLS_Furniture.UserControls
             cboStyle.SelectedIndex = 0;
 
             dtpDueDate.Value = DateTime.Today.AddDays(7);
-
-            dgvFurnitureResults.AutoGenerateColumns = false;
-            dgvCart.AutoGenerateColumns = false;
         }
 
         private void BtnFindMember_Click(object sender, EventArgs e)
@@ -139,8 +254,7 @@ namespace KLS_Furniture.UserControls
                 List<FurnitureSearchResultItem> results =
                     rentalController.SearchFurniture(furnitureId, categoryId, styleId);
 
-                dgvFurnitureResults.DataSource = null;
-                dgvFurnitureResults.DataSource = results;
+                furnitureBindingSource.DataSource = results;
             }
             catch (Exception ex)
             {
@@ -368,8 +482,8 @@ namespace KLS_Furniture.UserControls
 
         private void RefreshCartGrid()
         {
-            dgvCart.DataSource = null;
-            dgvCart.DataSource = cartItems;
+            cartBindingSource.DataSource = null;
+            cartBindingSource.DataSource = cartItems.ToList();
 
             decimal total = cartItems.Sum(x => x.LineTotal);
             lblTotalCostValue.Text = total.ToString("C2");

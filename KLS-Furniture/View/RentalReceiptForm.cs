@@ -7,6 +7,8 @@ namespace KLS_Furniture.View
 {
     public partial class RentalReceiptForm : Form
     {
+        private readonly BindingSource _bindingSource;
+
         public RentalReceiptForm(
             int rentalTransactionId,
             string memberDisplayText,
@@ -16,8 +18,11 @@ namespace KLS_Furniture.View
         {
             InitializeComponent();
 
-            dgvReceiptItems.AutoGenerateColumns = false;
-            dgvReceiptItems.DataSource = items;
+            _bindingSource = new BindingSource();
+
+            ConfigureGrid();
+
+            _bindingSource.DataSource = items;
 
             lblTransactionId.Text = "Rental Transaction ID: " + rentalTransactionId;
             lblCustomer.Text = "Customer: " + memberDisplayText;
@@ -25,6 +30,57 @@ namespace KLS_Furniture.View
             lblTotalCost.Text = "Total Cost: " + totalCost.ToString("C2");
 
             btnClose.Click += BtnClose_Click;
+        }
+
+        private void ConfigureGrid()
+        {
+            dgvReceiptItems.AllowUserToAddRows = false;
+            dgvReceiptItems.AutoGenerateColumns = false;
+            dgvReceiptItems.Columns.Clear();
+
+            dgvReceiptItems.DataSource = _bindingSource;
+
+            dgvReceiptItems.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "ReceiptFurnitureIdColumn",
+                HeaderText = "Item ID",
+                DataPropertyName = "FurnitureId",
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
+            });
+
+            dgvReceiptItems.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "ReceiptFurnitureNameColumn",
+                HeaderText = "Name",
+                DataPropertyName = "FurnitureName",
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
+            });
+
+            dgvReceiptItems.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "ReceiptQuantityColumn",
+                HeaderText = "Qty",
+                DataPropertyName = "Quantity",
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
+            });
+
+            dgvReceiptItems.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "ReceiptRateColumn",
+                HeaderText = "Unit Price",
+                DataPropertyName = "DailyRateAtRent",
+                DefaultCellStyle = new DataGridViewCellStyle { Format = "C2" },
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
+            });
+
+            dgvReceiptItems.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "ReceiptLineTotalColumn",
+                HeaderText = "Line Total",
+                DataPropertyName = "LineTotal",
+                DefaultCellStyle = new DataGridViewCellStyle { Format = "C2" },
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
+            });
         }
 
         private void BtnClose_Click(object sender, EventArgs e)
