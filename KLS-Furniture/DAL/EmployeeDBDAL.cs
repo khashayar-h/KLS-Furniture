@@ -1,11 +1,7 @@
-﻿using BCrypt.Net;
 using KLS_Furniture.Model.Lookups;
-using System;
 using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
-using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace KLS_Furniture.DAL
 {
@@ -135,6 +131,5 @@ namespace KLS_Furniture.DAL
         {
             return BCrypt.Net.BCrypt.Verify(textPassword, hashPassword);
         }
-
     }
 }
