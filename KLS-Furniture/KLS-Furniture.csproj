@@ -193,6 +193,7 @@
     <Compile Include="Model\Lookups\RentalMemberLookupItem.cs" />
     <Compile Include="Model\Lookups\ReturnHistoryItem.cs" />
     <Compile Include="Model\Rental\RentalCalculator.cs" />
+    <Compile Include="Model\Rental\RentalDebugRunner.cs" />
     <Compile Include="Model\Rental\RentalItemInput.cs" />
     <Compile Include="Model\Rental\RentalSaveRequest.cs" />
     <Compile Include="Model\Rental\RentalSaveResult.cs" />
@@ -309,6 +310,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
