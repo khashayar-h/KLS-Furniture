@@ -10,6 +10,9 @@ using System.Windows.Forms;
 
 namespace KLS_Furniture.UserControls
 {
+    /// <summary>
+    /// Class that processes furniture rental process
+    /// </summary>
     public partial class FurnitureRentalUserControl : UserControl
     {
         private readonly RentalController rentalController;
@@ -19,6 +22,11 @@ namespace KLS_Furniture.UserControls
         private List<RentalCartRow> cartItems;
         private RentalMemberLookupItem selectedMember;
 
+        private int _daysRented = 0;
+
+        /// <summary>
+        /// Constructor for FurnitureRentalUserControl class
+        /// </summary>
         public FurnitureRentalUserControl()
         {
             InitializeComponent();
@@ -29,6 +37,10 @@ namespace KLS_Furniture.UserControls
 
             cartItems = new List<RentalCartRow>();
             selectedMember = null;
+
+            dtpDueDate.MinDate = DateTime.Today.AddDays(1);
+            DateTime DueDateTime = dtpDueDate.Value.Date;
+            _daysRented = (DueDateTime - DateTime.Today).Days;
 
             ConfigureFurnitureResultsGrid();
             ConfigureCartGrid();
@@ -44,6 +56,7 @@ namespace KLS_Furniture.UserControls
             btnUpdateQty.Click += BtnUpdateQty_Click;
             btnRemoveItem.Click += BtnRemoveItem_Click;
             btnConfirmRental.Click += BtnConfirmRental_Click;
+            dtpDueDate.ValueChanged += dtpDueDate_ValueChanged;
         }
 
         private void ConfigureFurnitureResultsGrid()
@@ -143,12 +156,32 @@ namespace KLS_Furniture.UserControls
 
             dgvCart.Columns.Add(new DataGridViewTextBoxColumn
             {
+                Name = "CartDaysRentedColumn",
+                HeaderText = "Days Rented",
+                DataPropertyName = "DaysRented",
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
+            });
+
+            dgvCart.Columns.Add(new DataGridViewTextBoxColumn
+            {
                 Name = "CartLineTotalColumn",
                 HeaderText = "Line Total",
                 DataPropertyName = "LineTotal",
                 DefaultCellStyle = new DataGridViewCellStyle { Format = "C2" },
                 AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
             });
+        }
+
+        private void dtpDueDate_ValueChanged(object sender, EventArgs e)
+        {
+            DateTime DueDateTime = dtpDueDate.Value.Date;
+            _daysRented = (DueDateTime - DateTime.Today).Days;
+
+            foreach (var item in cartItems)
+            {
+                item.DaysRented = _daysRented;
+            }
+            RefreshCartGrid();
         }
 
         private void FurnitureRentalUserControl_Load(object sender, EventArgs e)
@@ -328,6 +361,7 @@ namespace KLS_Furniture.UserControls
                         FurnitureName = furniture.Name,
                         Quantity = requestedQty,
                         DailyRateAtRent = furniture.DailyRate,
+                        DaysRented = _daysRented,
                         QuantityAvailable = furniture.QuantityAvailable
                     });
                 }
@@ -463,15 +497,12 @@ namespace KLS_Furniture.UserControls
                     selectedMember.DisplayText,
                     dtpDueDate.Value.Date,
                     cartItems,
-                    result.TotalCost))
+                    result.TotalCost * _daysRented))
                 {
                     receiptForm.ShowDialog();
                 }
 
-                cartItems = new List<RentalCartRow>();
-                RefreshCartGrid();
-                lblSelectedMemberValue.Text = "No member selected";
-                selectedMember = null;
+                ClearForm();
             }
             catch (Exception ex)
             {
@@ -489,6 +520,25 @@ namespace KLS_Furniture.UserControls
             lblTotalCostValue.Text = total.ToString("C2");
         }
 
+        private void ClearForm()
+        {
+            cartItems = new List<RentalCartRow>();
+            lblSelectedMemberValue.Text = "No member selected";
+            selectedMember = null;
+            furnitureBindingSource.DataSource = null;
+            cboCategory.SelectedIndex = 0;
+            cboStyle.SelectedIndex = 0;
+            txtFurnitureId.Text = string.Empty;
+            dtpDueDate.Value = DateTime.Today.AddDays(7);
+            DateTime DueDateTime = dtpDueDate.Value.Date;
+            _daysRented = (DueDateTime - DateTime.Today).Days;
+            RefreshCartGrid();
+
+        }
+
+        /// <summary>
+        /// Class for population of Rental Cart row items
+        /// </summary>
         public class RentalCartRow
         {
             public int FurnitureId { get; set; }
@@ -496,11 +546,17 @@ namespace KLS_Furniture.UserControls
             public int Quantity { get; set; }
             public decimal DailyRateAtRent { get; set; }
             public int QuantityAvailable { get; set; }
+            public int DaysRented { get; set; }
 
             public decimal LineTotal
             {
-                get { return Quantity * DailyRateAtRent; }
+                get { return Quantity * DailyRateAtRent * DaysRented; }
             }
+        }
+
+        private void CancelRentalButton_Click(object sender, EventArgs e)
+        {
+            ClearForm();
         }
     }
 }
