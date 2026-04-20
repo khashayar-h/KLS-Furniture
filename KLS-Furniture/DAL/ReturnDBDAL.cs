@@ -1,4 +1,5 @@
-﻿using System;
+﻿using KLS_Furniture.Model.Return;
+using System;
 using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
@@ -91,6 +92,57 @@ namespace KLS_Furniture.DAL
             int alreadyReturnedQuantity = GetAlreadyReturnedQuantity(rentalTransactionId, furnitureId);
 
             return rentedQuantity - alreadyReturnedQuantity;
+        }
+
+        private ReturnRentalItemLookup GetRentalItemForReturn(int rentalTransactionId, int furnitureId)
+        {
+            const string sql = @"
+                SELECT
+                    rt.rental_transaction_id,
+                    rti.furniture_id,
+                    f.name AS furniture_name,
+                    rt.rental_date_time,
+                    rt.due_date_time,
+                    rti.daily_rate_at_rent,
+                    rti.quantity
+                FROM dbo.rental_transactions rt
+                INNER JOIN dbo.rental_transaction_items rti
+                    ON rt.rental_transaction_id = rti.rental_transaction_id
+                INNER JOIN dbo.furniture f
+                    ON rti.furniture_id = f.furniture_id
+                WHERE rt.rental_transaction_id = @RentalTransactionId
+                  AND rti.furniture_id = @FurnitureId;";
+
+            using (SqlConnection conn = new SqlConnection(_cs))
+            using (SqlCommand cmd = new SqlCommand(sql, conn))
+            {
+                cmd.Parameters.Add("@RentalTransactionId", SqlDbType.Int).Value = rentalTransactionId;
+                cmd.Parameters.Add("@FurnitureId", SqlDbType.Int).Value = furnitureId;
+
+                conn.Open();
+
+                using (SqlDataReader r = cmd.ExecuteReader())
+                {
+                    if (!r.Read())
+                        return null;
+
+                    ReturnRentalItemLookup item = new ReturnRentalItemLookup
+                    {
+                        RentalTransactionId = r.GetInt32(r.GetOrdinal("rental_transaction_id")),
+                        FurnitureId = r.GetInt32(r.GetOrdinal("furniture_id")),
+                        FurnitureName = r.GetString(r.GetOrdinal("furniture_name")),
+                        RentalDateTime = r.GetDateTime(r.GetOrdinal("rental_date_time")),
+                        DueDateTime = r.GetDateTime(r.GetOrdinal("due_date_time")),
+                        DailyRateAtRent = r.GetDecimal(r.GetOrdinal("daily_rate_at_rent")),
+                        QuantityRented = r.GetInt32(r.GetOrdinal("quantity"))
+                    };
+
+                    item.QuantityAlreadyReturned = GetAlreadyReturnedQuantity(rentalTransactionId, furnitureId);
+                    item.QuantityRemainingReturnable = item.QuantityRented - item.QuantityAlreadyReturned;
+
+                    return item;
+                }
+            }
         }
     }
 }

@@ -193,6 +193,7 @@
     <Compile Include="Model\Lookups\RentalHistoryItem.cs" />
     <Compile Include="Model\Lookups\RentalMemberLookupItem.cs" />
     <Compile Include="Model\Lookups\ReturnHistoryItem.cs" />
+    <Compile Include="Model\Lookups\ReturnRentalLookupItem.cs" />
     <Compile Include="Model\Rental\RentalCalculator.cs" />
     <Compile Include="Model\Rental\RentalDebugRunner.cs" />
     <Compile Include="Model\Rental\RentalItemInput.cs" />
