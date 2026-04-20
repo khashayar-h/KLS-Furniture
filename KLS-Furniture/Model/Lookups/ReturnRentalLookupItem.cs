@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace KLS_Furniture.Model.Return
+namespace KLS_Furniture.Model.Lookups
 {
     /// <summary>
     /// Represents rental item data needed for the return workflow.
