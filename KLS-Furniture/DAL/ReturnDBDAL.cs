@@ -339,5 +339,83 @@ namespace KLS_Furniture.DAL
 
             return result;
         }
+
+        /// <summary>
+        /// Returns all rental items for a member that still have returnable quantity remaining.
+        /// </summary>
+        public List<ReturnRentalItemLookup> GetReturnableItemsForMember(int memberId)
+        {
+            if (memberId <= 0)
+                throw new ArgumentException("A valid member is required.");
+
+            List<ReturnRentalItemLookup> items = new List<ReturnRentalItemLookup>();
+
+            const string sql = @"
+                SELECT
+                    rt.rental_transaction_id,
+                    rti.furniture_id,
+                    f.name AS furniture_name,
+                    rt.rental_date_time,
+                    rt.due_date_time,
+                    rti.daily_rate_at_rent,
+                    rti.quantity AS quantity_rented,
+                    ISNULL(SUM(rturn.quantity_returned), 0) AS quantity_already_returned,
+                    rti.quantity - ISNULL(SUM(rturn.quantity_returned), 0) AS quantity_remaining_returnable
+                FROM dbo.rental_transactions rt
+                INNER JOIN dbo.rental_transaction_items rti
+                    ON rt.rental_transaction_id = rti.rental_transaction_id
+                INNER JOIN dbo.furniture f
+                    ON rti.furniture_id = f.furniture_id
+                LEFT JOIN dbo.return_transaction_items rturn
+                    ON rti.rental_transaction_id = rturn.rental_transaction_id
+                   AND rti.furniture_id = rturn.furniture_id
+                WHERE rt.member_id = @MemberId
+                GROUP BY
+                    rt.rental_transaction_id,
+                    rti.furniture_id,
+                    f.name,
+                    rt.rental_date_time,
+                    rt.due_date_time,
+                    rti.daily_rate_at_rent,
+                    rti.quantity
+                HAVING rti.quantity - ISNULL(SUM(rturn.quantity_returned), 0) > 0
+                ORDER BY rt.rental_date_time DESC, rt.rental_transaction_id DESC, rti.furniture_id;";
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(_cs))
+                using (SqlCommand cmd = new SqlCommand(sql, conn))
+                {
+                    cmd.Parameters.Add("@MemberId", SqlDbType.Int).Value = memberId;
+
+                    conn.Open();
+
+                    using (SqlDataReader r = cmd.ExecuteReader())
+                    {
+                        while (r.Read())
+                        {
+                            items.Add(new ReturnRentalItemLookup
+                            {
+                                RentalTransactionId = r.GetInt32(r.GetOrdinal("rental_transaction_id")),
+                                FurnitureId = r.GetInt32(r.GetOrdinal("furniture_id")),
+                                FurnitureName = r.GetString(r.GetOrdinal("furniture_name")),
+                                RentalDateTime = r.GetDateTime(r.GetOrdinal("rental_date_time")),
+                                DueDateTime = r.GetDateTime(r.GetOrdinal("due_date_time")),
+                                DailyRateAtRent = r.GetDecimal(r.GetOrdinal("daily_rate_at_rent")),
+                                QuantityRented = r.GetInt32(r.GetOrdinal("quantity_rented")),
+                                QuantityAlreadyReturned = r.GetInt32(r.GetOrdinal("quantity_already_returned")),
+                                QuantityRemainingReturnable = r.GetInt32(r.GetOrdinal("quantity_remaining_returnable"))
+                            });
+                        }
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw new DataException("A database error occurred while loading returnable rental items.", ex);
+            }
+
+            return items;
+        }
     }
 }
