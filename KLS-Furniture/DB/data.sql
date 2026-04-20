@@ -101,3 +101,40 @@ VALUES
 
 SET IDENTITY_INSERT [dbo].[furniture] OFF
 GO
+
+
+
+-- Rental transactions
+SET IDENTITY_INSERT [dbo].[rental_transactions] ON 
+
+INSERT [dbo].[rental_transactions]
+    ([rental_transaction_id], [member_id], [employee_id], [rental_date_time], [due_date_time])
+VALUES
+    (1, 10000, 1, CAST(N'2026-04-15T10:00:00' AS datetime2(0)), CAST(N'2026-04-25T10:00:00' AS datetime2(0))),
+    (2, 10000, 2, CAST(N'2026-04-05T09:30:00' AS datetime2(0)), CAST(N'2026-04-10T09:30:00' AS datetime2(0))),
+    (3, 10001, 1, CAST(N'2026-04-18T02:00:00' AS datetime2(0)), CAST(N'2026-04-23T02:00:00' AS datetime2(0)));
+
+SET IDENTITY_INSERT [dbo].[rental_transactions] OFF
+GO
+
+-- Rental transaction items
+INSERT [dbo].[rental_transaction_items]
+    ([rental_transaction_id], [furniture_id], [quantity], [daily_rate_at_rent])
+VALUES
+    (1, 1, 2, CAST(12.99 AS decimal(10,2))),
+    (1, 5, 1, CAST(18.99 AS decimal(10,2))),
+    (2, 3, 1, CAST(14.75 AS decimal(10,2))),
+    (2, 7, 1, CAST(17.50 AS decimal(10,2))),
+    (3, 2, 1, CAST(24.50 AS decimal(10,2))),
+    (3, 4, 2, CAST(10.50 AS decimal(10,2)));
+GO
+
+
+-- Adjust furniture quantity
+UPDATE dbo.furniture SET quantity = quantity - 2 WHERE furniture_id = 1;
+UPDATE dbo.furniture SET quantity = quantity - 1 WHERE furniture_id = 5;
+UPDATE dbo.furniture SET quantity = quantity - 1 WHERE furniture_id = 3;
+UPDATE dbo.furniture SET quantity = quantity - 1 WHERE furniture_id = 7;
+UPDATE dbo.furniture SET quantity = quantity - 1 WHERE furniture_id = 2;
+UPDATE dbo.furniture SET quantity = quantity - 2 WHERE furniture_id = 4;
+GO
