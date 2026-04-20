@@ -11,7 +11,7 @@ namespace KLS_Furniture.Model.Lookups
         public DateTime RentalDate { get; set; }
         public DateTime DueDate { get; set; }
         public int MemberId { get; set; }
-        public int EmployeeId { get; set; }
+        public string EmployeeName { get; set; }
         public int FurnitureId { get; set; }
         public string FurnitureName { get; set; } = string.Empty;
         public string CategoryName { get; set; } = string.Empty;
@@ -19,7 +19,7 @@ namespace KLS_Furniture.Model.Lookups
         public decimal DailyRateAtRent { get; set; }
 
         // Calculated fields
-        public int DaysRented => (DueDate - RentalDate).Days;
+        public int DaysRented => (int)Math.Ceiling((DueDate - RentalDate).TotalDays);
         public decimal LineTotal => Quantity * DailyRateAtRent * DaysRented;
 
     }

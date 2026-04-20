@@ -41,7 +41,7 @@ namespace KLS_Furniture.DAL
                     rt.rental_date_time,
                     rt.due_date_time,
                     rt.member_id,
-                    rt.employee_id,
+                    e.first_name + ' ' + e.last_name AS employee_name,
                     rti.furniture_id,
                     f.name AS furniture_name,
                     c.category_name,
@@ -54,6 +54,8 @@ namespace KLS_Furniture.DAL
                     ON rti.furniture_id = f.furniture_id
                 INNER JOIN furniture_categories c 
                     ON f.category_id = c.category_id
+                INNER JOIN employees e
+                    ON e.employee_id = rt.employee_id
                 WHERE rt.member_id = @MemberId
                 ORDER BY rt.rental_date_time DESC, rti.furniture_id;";
 
@@ -73,7 +75,7 @@ namespace KLS_Furniture.DAL
                             RentalDate = reader.GetDateTime(reader.GetOrdinal("rental_date_time")),
                             DueDate = reader.GetDateTime(reader.GetOrdinal("due_date_time")),
                             MemberId = reader.GetInt32(reader.GetOrdinal("member_id")),
-                            EmployeeId = reader.GetInt32(reader.GetOrdinal("employee_id")),
+                            EmployeeName = reader.GetString(reader.GetOrdinal("employee_name")),
                             FurnitureId = reader.GetInt32(reader.GetOrdinal("furniture_id")),
                             FurnitureName = reader.GetString(reader.GetOrdinal("furniture_name")),
                             CategoryName = reader.GetString(reader.GetOrdinal("category_name")),
@@ -102,7 +104,7 @@ namespace KLS_Furniture.DAL
                     rt.return_transaction_id,
                     rt.return_date_time,
                     rti.rental_transaction_id,
-                    rt.employee_id,
+                    e.first_name + ' ' + e.last_name AS employee_name,
                     rti.furniture_id,
                     f.name AS furniture_name,
                     c.category_name,
@@ -116,6 +118,8 @@ namespace KLS_Furniture.DAL
                     ON rti.furniture_id = f.furniture_id
                 INNER JOIN furniture_categories c 
                     ON f.category_id = c.category_id
+                INNER JOIN employees e
+                    ON e.employee_id = rt.employee_id
                 WHERE rt.return_transaction_id IN (
                     SELECT DISTINCT rti2.return_transaction_id 
                     FROM return_transaction_items rti2
@@ -140,7 +144,7 @@ namespace KLS_Furniture.DAL
                             ReturnTransactionId = reader.GetInt32(reader.GetOrdinal("return_transaction_id")),
                             ReturnDate = reader.GetDateTime(reader.GetOrdinal("return_date_time")),
                             RentalTransactionId = reader.GetInt32(reader.GetOrdinal("rental_transaction_id")),
-                            EmployeeId = reader.GetInt32(reader.GetOrdinal("employee_id")),
+                            EmployeeName = reader.GetString(reader.GetOrdinal("employee_name")),
                             FurnitureId = reader.GetInt32(reader.GetOrdinal("furniture_id")),
                             FurnitureName = reader.GetString(reader.GetOrdinal("furniture_name")),
                             CategoryName = reader.GetString(reader.GetOrdinal("category_name")),
