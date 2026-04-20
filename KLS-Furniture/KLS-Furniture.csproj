@@ -197,6 +197,9 @@
     <Compile Include="Model\Rental\RentalItemInput.cs" />
     <Compile Include="Model\Rental\RentalSaveRequest.cs" />
     <Compile Include="Model\Rental\RentalSaveResult.cs" />
+    <Compile Include="Model\Return\ReturnItemInput.cs" />
+    <Compile Include="Model\Return\ReturnSaveRequest.cs" />
+    <Compile Include="Model\Return\ReturnSaveResult.cs" />
     <Compile Include="UserControls\FurnitureRentalUserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
