@@ -5,12 +5,22 @@ using System.Windows.Forms;
 
 namespace KLS_Furniture.View
 {
+    /// <summary>
+    /// Class that allows user to select a member from list
+    /// </summary>
     public partial class MemberPickerForm : Form
     {
         private readonly BindingSource _bindingSource;
 
+        /// <summary>
+        /// Class variable for member selected 
+        /// </summary>
         public RentalMemberLookupItem SelectedMember { get; private set; }
 
+        /// <summary>
+        /// Constructor of MemberPickerForm class
+        /// </summary>
+        /// <param name="members">List of memebers to display</param>
         public MemberPickerForm(List<RentalMemberLookupItem> members)
         {
             InitializeComponent();

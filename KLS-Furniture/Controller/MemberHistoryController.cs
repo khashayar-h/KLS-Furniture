@@ -25,11 +25,21 @@ namespace KLS_Furniture.Controller
             this._memberHistoryDAL = new MemberHistoryDBDAL();
         }
 
+        /// <summary>
+        /// Function to pass id of member who's rental history is requested to DAL
+        /// </summary>
+        /// <param name="memberId">id of member who's history is requested</param>
+        /// <returns>List of Rental History items</returns>
         public List<RentalHistoryItem> GetMemberRentalHistory(int memberId)
         {
             return _memberHistoryDAL.GetMemberRentalHistory(memberId);
         }
 
+        /// <summary>
+        /// Function to pass id of member who's return history is requested to DAL
+        /// </summary>
+        /// <param name="memberId">id of member who's history is requested</param>
+        /// <returns>List of Return History items</returns>
         public List<ReturnHistoryItem> GetMemberReturnHistory(int memberId)
         {
             return _memberHistoryDAL.GetMemberReturnHistory(memberId);

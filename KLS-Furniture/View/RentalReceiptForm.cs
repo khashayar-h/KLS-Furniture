@@ -5,10 +5,21 @@ using System.Windows.Forms;
 
 namespace KLS_Furniture.View
 {
+    /// <summary>
+    /// View that displays the information for a rental transaction
+    /// </summary>
     public partial class RentalReceiptForm : Form
     {
         private readonly BindingSource _bindingSource;
 
+        /// <summary>
+        /// Contructor for RentalReceiptForm class
+        /// </summary>
+        /// <param name="rentalTransactionId"> Id of the transaction represented</param>
+        /// <param name="memberDisplayText">Name of the member who the rental belongs to</param>
+        /// <param name="dueDate">Date the rental is due to be returned</param>
+        /// <param name="items"> list of items rented during transaction</param>
+        /// <param name="totalCost"> Cost of the transaction</param>
         public RentalReceiptForm(
             int rentalTransactionId,
             string memberDisplayText,
