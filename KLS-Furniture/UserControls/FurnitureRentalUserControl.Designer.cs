@@ -26,10 +26,6 @@
         {
             this.rentalTableLayout = new System.Windows.Forms.TableLayoutPanel();
             this.lblPageTitle = new System.Windows.Forms.Label();
-            this.grpSelectedMember = new System.Windows.Forms.GroupBox();
-            this.MemberDetailsLabel = new System.Windows.Forms.Label();
-            this.btnFindMember = new System.Windows.Forms.Button();
-            this.lblSelectedMemberValue = new System.Windows.Forms.Label();
             this.grpFurnitureSearch = new System.Windows.Forms.GroupBox();
             this.dgvFurnitureResults = new System.Windows.Forms.DataGridView();
             this.label1 = new System.Windows.Forms.Label();
@@ -49,14 +45,15 @@
             this.btnUpdateQty = new System.Windows.Forms.Button();
             this.btnRemoveItem = new System.Windows.Forms.Button();
             this.grpConfirm = new System.Windows.Forms.GroupBox();
+            this.CancelRentalButton = new System.Windows.Forms.Button();
             this.btnConfirmRental = new System.Windows.Forms.Button();
             this.dtpDueDate = new System.Windows.Forms.DateTimePicker();
             this.lblTotalCostValue = new System.Windows.Forms.Label();
             this.lblTotalCost = new System.Windows.Forms.Label();
             this.lblDueDate = new System.Windows.Forms.Label();
-            this.CancelRentalButton = new System.Windows.Forms.Button();
+            this.memberSearchUserControl1 = new KLS_Furniture.UserControls.MemberSearchUserControl();
+            this.ClearSearchButton = new System.Windows.Forms.Button();
             this.rentalTableLayout.SuspendLayout();
-            this.grpSelectedMember.SuspendLayout();
             this.grpFurnitureSearch.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvFurnitureResults)).BeginInit();
             this.grpCart.SuspendLayout();
@@ -67,23 +64,24 @@
             // 
             // rentalTableLayout
             // 
+            this.rentalTableLayout.AutoScroll = true;
             this.rentalTableLayout.ColumnCount = 1;
             this.rentalTableLayout.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.rentalTableLayout.Controls.Add(this.lblPageTitle, 0, 0);
-            this.rentalTableLayout.Controls.Add(this.grpSelectedMember, 0, 1);
             this.rentalTableLayout.Controls.Add(this.grpFurnitureSearch, 0, 2);
             this.rentalTableLayout.Controls.Add(this.grpCart, 0, 3);
             this.rentalTableLayout.Controls.Add(this.grpConfirm, 0, 4);
+            this.rentalTableLayout.Controls.Add(this.memberSearchUserControl1, 0, 1);
             this.rentalTableLayout.Dock = System.Windows.Forms.DockStyle.Fill;
             this.rentalTableLayout.Location = new System.Drawing.Point(0, 0);
-            this.rentalTableLayout.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.rentalTableLayout.Margin = new System.Windows.Forms.Padding(4);
             this.rentalTableLayout.Name = "rentalTableLayout";
             this.rentalTableLayout.RowCount = 5;
             this.rentalTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 42F));
-            this.rentalTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 91F));
-            this.rentalTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 292F));
-            this.rentalTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 267F));
-            this.rentalTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 198F));
+            this.rentalTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 500F));
+            this.rentalTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 300F));
+            this.rentalTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 300F));
+            this.rentalTableLayout.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 150F));
             this.rentalTableLayout.Size = new System.Drawing.Size(789, 804);
             this.rentalTableLayout.TabIndex = 1;
             // 
@@ -99,55 +97,10 @@
             this.lblPageTitle.TabIndex = 0;
             this.lblPageTitle.Text = "Furniture Rental";
             // 
-            // grpSelectedMember
-            // 
-            this.grpSelectedMember.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.grpSelectedMember.Controls.Add(this.MemberDetailsLabel);
-            this.grpSelectedMember.Controls.Add(this.btnFindMember);
-            this.grpSelectedMember.Controls.Add(this.lblSelectedMemberValue);
-            this.grpSelectedMember.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grpSelectedMember.Location = new System.Drawing.Point(4, 46);
-            this.grpSelectedMember.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.grpSelectedMember.Name = "grpSelectedMember";
-            this.grpSelectedMember.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.grpSelectedMember.Size = new System.Drawing.Size(781, 83);
-            this.grpSelectedMember.TabIndex = 1;
-            this.grpSelectedMember.TabStop = false;
-            // 
-            // MemberDetailsLabel
-            // 
-            this.MemberDetailsLabel.AutoSize = true;
-            this.MemberDetailsLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.MemberDetailsLabel.Location = new System.Drawing.Point(29, 0);
-            this.MemberDetailsLabel.Name = "MemberDetailsLabel";
-            this.MemberDetailsLabel.Size = new System.Drawing.Size(155, 20);
-            this.MemberDetailsLabel.TabIndex = 2;
-            this.MemberDetailsLabel.Text = "Selected Member";
-            // 
-            // btnFindMember
-            // 
-            this.btnFindMember.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnFindMember.Location = new System.Drawing.Point(616, 31);
-            this.btnFindMember.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.btnFindMember.Name = "btnFindMember";
-            this.btnFindMember.Size = new System.Drawing.Size(123, 28);
-            this.btnFindMember.TabIndex = 1;
-            this.btnFindMember.Text = "Find Member";
-            this.btnFindMember.UseVisualStyleBackColor = true;
-            // 
-            // lblSelectedMemberValue
-            // 
-            this.lblSelectedMemberValue.AutoSize = true;
-            this.lblSelectedMemberValue.Location = new System.Drawing.Point(33, 37);
-            this.lblSelectedMemberValue.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.lblSelectedMemberValue.Name = "lblSelectedMemberValue";
-            this.lblSelectedMemberValue.Size = new System.Drawing.Size(133, 16);
-            this.lblSelectedMemberValue.TabIndex = 0;
-            this.lblSelectedMemberValue.Text = "No member selected";
-            // 
             // grpFurnitureSearch
             // 
             this.grpFurnitureSearch.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.grpFurnitureSearch.Controls.Add(this.ClearSearchButton);
             this.grpFurnitureSearch.Controls.Add(this.dgvFurnitureResults);
             this.grpFurnitureSearch.Controls.Add(this.label1);
             this.grpFurnitureSearch.Controls.Add(this.btnSearch);
@@ -158,11 +111,11 @@
             this.grpFurnitureSearch.Controls.Add(this.cboCategory);
             this.grpFurnitureSearch.Controls.Add(this.lblCategory);
             this.grpFurnitureSearch.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grpFurnitureSearch.Location = new System.Drawing.Point(4, 137);
-            this.grpFurnitureSearch.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.grpFurnitureSearch.Location = new System.Drawing.Point(4, 546);
+            this.grpFurnitureSearch.Margin = new System.Windows.Forms.Padding(4);
             this.grpFurnitureSearch.Name = "grpFurnitureSearch";
-            this.grpFurnitureSearch.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.grpFurnitureSearch.Size = new System.Drawing.Size(781, 284);
+            this.grpFurnitureSearch.Padding = new System.Windows.Forms.Padding(4);
+            this.grpFurnitureSearch.Size = new System.Drawing.Size(781, 292);
             this.grpFurnitureSearch.TabIndex = 2;
             this.grpFurnitureSearch.TabStop = false;
             // 
@@ -172,7 +125,7 @@
             this.dgvFurnitureResults.AllowUserToDeleteRows = false;
             this.dgvFurnitureResults.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvFurnitureResults.Location = new System.Drawing.Point(37, 87);
-            this.dgvFurnitureResults.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dgvFurnitureResults.Margin = new System.Windows.Forms.Padding(4);
             this.dgvFurnitureResults.Name = "dgvFurnitureResults";
             this.dgvFurnitureResults.ReadOnly = true;
             this.dgvFurnitureResults.RowHeadersVisible = false;
@@ -193,8 +146,8 @@
             // 
             // btnSearch
             // 
-            this.btnSearch.Location = new System.Drawing.Point(639, 32);
-            this.btnSearch.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnSearch.Location = new System.Drawing.Point(639, 11);
+            this.btnSearch.Margin = new System.Windows.Forms.Padding(4);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(100, 28);
             this.btnSearch.TabIndex = 6;
@@ -204,7 +157,7 @@
             // txtFurnitureId
             // 
             this.txtFurnitureId.Location = new System.Drawing.Point(571, 34);
-            this.txtFurnitureId.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtFurnitureId.Margin = new System.Windows.Forms.Padding(4);
             this.txtFurnitureId.Name = "txtFurnitureId";
             this.txtFurnitureId.Size = new System.Drawing.Size(59, 22);
             this.txtFurnitureId.TabIndex = 5;
@@ -234,7 +187,7 @@
             this.cboStyle.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboStyle.FormattingEnabled = true;
             this.cboStyle.Location = new System.Drawing.Point(325, 33);
-            this.cboStyle.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cboStyle.Margin = new System.Windows.Forms.Padding(4);
             this.cboStyle.Name = "cboStyle";
             this.cboStyle.Size = new System.Drawing.Size(145, 24);
             this.cboStyle.TabIndex = 2;
@@ -244,7 +197,7 @@
             this.cboCategory.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboCategory.FormattingEnabled = true;
             this.cboCategory.Location = new System.Drawing.Point(113, 33);
-            this.cboCategory.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cboCategory.Margin = new System.Windows.Forms.Padding(4);
             this.cboCategory.Name = "cboCategory";
             this.cboCategory.Size = new System.Drawing.Size(155, 24);
             this.cboCategory.TabIndex = 1;
@@ -270,11 +223,11 @@
             this.grpCart.Controls.Add(this.btnUpdateQty);
             this.grpCart.Controls.Add(this.btnRemoveItem);
             this.grpCart.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grpCart.Location = new System.Drawing.Point(4, 429);
-            this.grpCart.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.grpCart.Location = new System.Drawing.Point(4, 846);
+            this.grpCart.Margin = new System.Windows.Forms.Padding(4);
             this.grpCart.Name = "grpCart";
-            this.grpCart.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.grpCart.Size = new System.Drawing.Size(781, 259);
+            this.grpCart.Padding = new System.Windows.Forms.Padding(4);
+            this.grpCart.Size = new System.Drawing.Size(781, 292);
             this.grpCart.TabIndex = 3;
             this.grpCart.TabStop = false;
             // 
@@ -284,7 +237,7 @@
             this.dgvCart.AllowUserToDeleteRows = false;
             this.dgvCart.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvCart.Location = new System.Drawing.Point(37, 65);
-            this.dgvCart.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dgvCart.Margin = new System.Windows.Forms.Padding(4);
             this.dgvCart.Name = "dgvCart";
             this.dgvCart.ReadOnly = true;
             this.dgvCart.RowHeadersVisible = false;
@@ -306,7 +259,7 @@
             // nudQuantity
             // 
             this.nudQuantity.Location = new System.Drawing.Point(204, 32);
-            this.nudQuantity.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.nudQuantity.Margin = new System.Windows.Forms.Padding(4);
             this.nudQuantity.Minimum = new decimal(new int[] {
             1,
             0,
@@ -334,7 +287,7 @@
             // btnAddToCart
             // 
             this.btnAddToCart.Location = new System.Drawing.Point(387, 28);
-            this.btnAddToCart.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnAddToCart.Margin = new System.Windows.Forms.Padding(4);
             this.btnAddToCart.Name = "btnAddToCart";
             this.btnAddToCart.Size = new System.Drawing.Size(100, 28);
             this.btnAddToCart.TabIndex = 2;
@@ -344,7 +297,7 @@
             // btnUpdateQty
             // 
             this.btnUpdateQty.Location = new System.Drawing.Point(513, 28);
-            this.btnUpdateQty.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnUpdateQty.Margin = new System.Windows.Forms.Padding(4);
             this.btnUpdateQty.Name = "btnUpdateQty";
             this.btnUpdateQty.Size = new System.Drawing.Size(100, 28);
             this.btnUpdateQty.TabIndex = 3;
@@ -354,7 +307,7 @@
             // btnRemoveItem
             // 
             this.btnRemoveItem.Location = new System.Drawing.Point(639, 30);
-            this.btnRemoveItem.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnRemoveItem.Margin = new System.Windows.Forms.Padding(4);
             this.btnRemoveItem.Name = "btnRemoveItem";
             this.btnRemoveItem.Size = new System.Drawing.Size(100, 28);
             this.btnRemoveItem.TabIndex = 4;
@@ -371,18 +324,28 @@
             this.grpConfirm.Controls.Add(this.lblTotalCost);
             this.grpConfirm.Controls.Add(this.lblDueDate);
             this.grpConfirm.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.grpConfirm.Location = new System.Drawing.Point(4, 696);
-            this.grpConfirm.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.grpConfirm.Location = new System.Drawing.Point(4, 1146);
+            this.grpConfirm.Margin = new System.Windows.Forms.Padding(4);
             this.grpConfirm.Name = "grpConfirm";
-            this.grpConfirm.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.grpConfirm.Size = new System.Drawing.Size(781, 190);
+            this.grpConfirm.Padding = new System.Windows.Forms.Padding(4);
+            this.grpConfirm.Size = new System.Drawing.Size(781, 142);
             this.grpConfirm.TabIndex = 4;
             this.grpConfirm.TabStop = false;
+            // 
+            // CancelRentalButton
+            // 
+            this.CancelRentalButton.Location = new System.Drawing.Point(604, 58);
+            this.CancelRentalButton.Name = "CancelRentalButton";
+            this.CancelRentalButton.Size = new System.Drawing.Size(134, 27);
+            this.CancelRentalButton.TabIndex = 12;
+            this.CancelRentalButton.Text = "Cancel";
+            this.CancelRentalButton.UseVisualStyleBackColor = true;
+            this.CancelRentalButton.Click += new System.EventHandler(this.CancelRentalButton_Click);
             // 
             // btnConfirmRental
             // 
             this.btnConfirmRental.Location = new System.Drawing.Point(604, 23);
-            this.btnConfirmRental.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnConfirmRental.Margin = new System.Windows.Forms.Padding(4);
             this.btnConfirmRental.Name = "btnConfirmRental";
             this.btnConfirmRental.Size = new System.Drawing.Size(135, 28);
             this.btnConfirmRental.TabIndex = 11;
@@ -392,7 +355,7 @@
             // dtpDueDate
             // 
             this.dtpDueDate.Location = new System.Drawing.Point(119, 46);
-            this.dtpDueDate.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dtpDueDate.Margin = new System.Windows.Forms.Padding(4);
             this.dtpDueDate.Name = "dtpDueDate";
             this.dtpDueDate.Size = new System.Drawing.Size(265, 22);
             this.dtpDueDate.TabIndex = 10;
@@ -427,20 +390,33 @@
             this.lblDueDate.TabIndex = 7;
             this.lblDueDate.Text = "Due Date";
             // 
-            // CancelRentalButton
+            // memberSearchUserControl1
             // 
-            this.CancelRentalButton.Location = new System.Drawing.Point(604, 58);
-            this.CancelRentalButton.Name = "CancelRentalButton";
-            this.CancelRentalButton.Size = new System.Drawing.Size(134, 27);
-            this.CancelRentalButton.TabIndex = 12;
-            this.CancelRentalButton.Text = "Cancel";
-            this.CancelRentalButton.UseVisualStyleBackColor = true;
-            this.CancelRentalButton.Click += new System.EventHandler(this.CancelRentalButton_Click);
+            this.memberSearchUserControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.memberSearchUserControl1.FirstNameText = "";
+            this.memberSearchUserControl1.LastNameText = "";
+            this.memberSearchUserControl1.Location = new System.Drawing.Point(3, 45);
+            this.memberSearchUserControl1.MemberIdText = "";
+            this.memberSearchUserControl1.Name = "memberSearchUserControl1";
+            this.memberSearchUserControl1.PhoneText = "";
+            this.memberSearchUserControl1.Size = new System.Drawing.Size(783, 494);
+            this.memberSearchUserControl1.TabIndex = 5;
+            // 
+            // ClearSearchButton
+            // 
+            this.ClearSearchButton.Location = new System.Drawing.Point(639, 47);
+            this.ClearSearchButton.Name = "ClearSearchButton";
+            this.ClearSearchButton.Size = new System.Drawing.Size(100, 28);
+            this.ClearSearchButton.TabIndex = 8;
+            this.ClearSearchButton.Text = "Clear";
+            this.ClearSearchButton.UseVisualStyleBackColor = true;
+            this.ClearSearchButton.Click += new System.EventHandler(this.ClearSearchButton_Click);
             // 
             // FurnitureRentalUserControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScroll = true;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.Controls.Add(this.rentalTableLayout);
             this.Margin = new System.Windows.Forms.Padding(0);
@@ -448,8 +424,6 @@
             this.Size = new System.Drawing.Size(789, 804);
             this.rentalTableLayout.ResumeLayout(false);
             this.rentalTableLayout.PerformLayout();
-            this.grpSelectedMember.ResumeLayout(false);
-            this.grpSelectedMember.PerformLayout();
             this.grpFurnitureSearch.ResumeLayout(false);
             this.grpFurnitureSearch.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvFurnitureResults)).EndInit();
@@ -467,10 +441,6 @@
 
         private System.Windows.Forms.TableLayoutPanel rentalTableLayout;
         private System.Windows.Forms.Label lblPageTitle;
-        private System.Windows.Forms.GroupBox grpSelectedMember;
-        private System.Windows.Forms.Label MemberDetailsLabel;
-        private System.Windows.Forms.Button btnFindMember;
-        private System.Windows.Forms.Label lblSelectedMemberValue;
         private System.Windows.Forms.GroupBox grpFurnitureSearch;
         private System.Windows.Forms.DataGridView dgvFurnitureResults;
         private System.Windows.Forms.Label label1;
@@ -496,5 +466,7 @@
         private System.Windows.Forms.Label lblTotalCost;
         private System.Windows.Forms.Label lblDueDate;
         private System.Windows.Forms.Button CancelRentalButton;
+        private MemberSearchUserControl memberSearchUserControl1;
+        private System.Windows.Forms.Button ClearSearchButton;
     }
 }

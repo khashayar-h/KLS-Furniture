@@ -2,6 +2,7 @@
 using KLS_Furniture.Model;
 using KLS_Furniture.Model.Lookups;
 using KLS_Furniture.Model.Rental;
+using KLS_Furniture.Model.Entities;
 using KLS_Furniture.View;
 using System;
 using System.Collections.Generic;
@@ -16,11 +17,12 @@ namespace KLS_Furniture.UserControls
     public partial class FurnitureRentalUserControl : UserControl
     {
         private readonly RentalController rentalController;
+        private readonly MemberManagementController _manageController;
         private readonly BindingSource furnitureBindingSource;
         private readonly BindingSource cartBindingSource;
 
         private List<RentalCartRow> cartItems;
-        private RentalMemberLookupItem selectedMember;
+        private Member selectedMember;
 
         private int _daysRented = 0;
 
@@ -32,6 +34,7 @@ namespace KLS_Furniture.UserControls
             InitializeComponent();
 
             rentalController = new RentalController();
+            _manageController = new MemberManagementController();
             furnitureBindingSource = new BindingSource();
             cartBindingSource = new BindingSource();
 
@@ -50,13 +53,42 @@ namespace KLS_Furniture.UserControls
         private void WireUpEvents()
         {
             this.Load += FurnitureRentalUserControl_Load;
-            btnFindMember.Click += BtnFindMember_Click;
             btnSearch.Click += BtnSearch_Click;
             btnAddToCart.Click += BtnAddToCart_Click;
             btnUpdateQty.Click += BtnUpdateQty_Click;
             btnRemoveItem.Click += BtnRemoveItem_Click;
             btnConfirmRental.Click += BtnConfirmRental_Click;
             dtpDueDate.ValueChanged += dtpDueDate_ValueChanged;
+            // MemberSearchUserControl events
+            memberSearchUserControl1.SearchClicked += MemberSearchUserControl_SearchClicked;
+            memberSearchUserControl1.ClearClicked += MemberSearchUserControl_ClearClicked;
+            memberSearchUserControl1.MemberSelected += MemberSearchUserControl_MemberSelected;
+        }
+
+        /// <summary>
+        /// Handles the Clear button click from MemberSearchUserControl.
+        /// </summary>
+        private void MemberSearchUserControl_ClearClicked(object sender, EventArgs e)
+        {
+            ClearSearchUI();
+        }
+
+        /// <summary>
+        /// Clears search fields, grid, and datagrids.
+        /// </summary>
+        private void ClearSearchUI()
+        {
+            memberSearchUserControl1.Clear();
+            selectedMember = null;
+        }
+
+        /// <summary>
+        /// Displays the selected member in the details panel.
+        /// </summary>
+        private void MemberSearchUserControl_MemberSelected(object sender, Member selectedMember)
+        {
+            this.selectedMember = selectedMember;
+
         }
 
         private void ConfigureFurnitureResultsGrid()
@@ -190,7 +222,7 @@ namespace KLS_Furniture.UserControls
             {
                 LoadLookups();
                 RefreshCartGrid();
-                lblSelectedMemberValue.Text = "No member selected";
+                //lblSelectedMemberValue.Text = "No member selected";
             }
             catch (Exception ex)
             {
@@ -228,29 +260,39 @@ namespace KLS_Furniture.UserControls
             dtpDueDate.Value = DateTime.Today.AddDays(7);
         }
 
-        private void BtnFindMember_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Handles the Search button click from MemberSearchUserControl.
+        /// </summary>
+        private void MemberSearchUserControl_SearchClicked(object sender, EventArgs e)
         {
             try
             {
-                List<RentalMemberLookupItem> members = rentalController.GetMembersForRental();
+                MemberSearchCriteria criteria = memberSearchUserControl1.BuildSearchCriteria();
 
-                using (MemberPickerForm picker = new MemberPickerForm(members))
+                if (!criteria.HasAnyCriteria())
                 {
-                    if (picker.ShowDialog() == DialogResult.OK)
-                    {
-                        selectedMember = picker.SelectedMember;
-
-                        if (selectedMember != null)
-                        {
-                            lblSelectedMemberValue.Text = selectedMember.DisplayText;
-                        }
-                    }
+                    memberSearchUserControl1.ShowError("Enter at least one search value.");
+                    return;
                 }
+
+                List<Member> members = _manageController.SearchMembers(criteria);
+                memberSearchUserControl1.SetDataSource(members);
+
+                if (members.Count == 0)
+                {
+                    memberSearchUserControl1.ShowMessage("No members found.");
+                    return;
+                }
+
+                memberSearchUserControl1.ShowMessage($"{members.Count} member(s) found.");
+            }
+            catch (FormatException ex)
+            {
+                memberSearchUserControl1.ShowError(ex.Message);
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Unable to load members: " + ex.Message,
-                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                memberSearchUserControl1.ShowError("Search failed: " + ex.Message);
             }
         }
 
@@ -494,7 +536,7 @@ namespace KLS_Furniture.UserControls
 
                 using (RentalReceiptForm receiptForm = new RentalReceiptForm(
                     result.RentalTransactionId,
-                    selectedMember.DisplayText,
+                    $"{selectedMember.FirstName} {selectedMember.LastName}",
                     dtpDueDate.Value.Date,
                     cartItems,
                     result.TotalCost * _daysRented))
@@ -523,7 +565,7 @@ namespace KLS_Furniture.UserControls
         private void ClearForm()
         {
             cartItems = new List<RentalCartRow>();
-            lblSelectedMemberValue.Text = "No member selected";
+            memberSearchUserControl1.Clear();
             selectedMember = null;
             furnitureBindingSource.DataSource = null;
             cboCategory.SelectedIndex = 0;
@@ -557,6 +599,14 @@ namespace KLS_Furniture.UserControls
         private void CancelRentalButton_Click(object sender, EventArgs e)
         {
             ClearForm();
+        }
+
+        private void ClearSearchButton_Click(object sender, EventArgs e)
+        {
+            furnitureBindingSource.DataSource = null;
+            cboCategory.SelectedIndex = 0;
+            cboStyle.SelectedIndex = 0;
+            txtFurnitureId.Text = string.Empty;
         }
     }
 }
