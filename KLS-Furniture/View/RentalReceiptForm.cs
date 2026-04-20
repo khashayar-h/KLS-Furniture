@@ -26,6 +26,7 @@ namespace KLS_Furniture.View
 
             lblTransactionId.Text = "Rental Transaction ID: " + rentalTransactionId;
             lblCustomer.Text = "Customer: " + memberDisplayText;
+            lblRentalDate.Text = "Rental Date: " + DateTime.Today.ToShortDateString();
             lblDueDate.Text = "Due Date: " + dueDate.ToShortDateString();
             lblTotalCost.Text = "Total Cost: " + totalCost.ToString("C2");
 
