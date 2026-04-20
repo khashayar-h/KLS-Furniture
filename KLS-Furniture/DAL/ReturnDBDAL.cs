@@ -55,29 +55,6 @@ namespace KLS_Furniture.DAL
             }
         }
 
-        private int GetRentedQuantity(int rentalTransactionId, int furnitureId)
-        {
-            const string sql = @"
-                SELECT quantity
-                FROM dbo.rental_transaction_items
-                WHERE rental_transaction_id = @RentalTransactionId
-                  AND furniture_id = @FurnitureId;";
-
-            using (SqlConnection conn = new SqlConnection(_cs))
-            using (SqlCommand cmd = new SqlCommand(sql, conn))
-            {
-                cmd.Parameters.Add("@RentalTransactionId", SqlDbType.Int).Value = rentalTransactionId;
-                cmd.Parameters.Add("@FurnitureId", SqlDbType.Int).Value = furnitureId;
-                conn.Open();
-
-                object result = cmd.ExecuteScalar();
-                if (result == null || result == DBNull.Value)
-                    return 0;
-
-                return Convert.ToInt32(result);
-            }
-        }
-
         private int GetAlreadyReturnedQuantity(int rentalTransactionId, int furnitureId)
         {
             const string sql = @"
@@ -102,6 +79,7 @@ namespace KLS_Furniture.DAL
             const string sql = @"
                 SELECT
                     rt.rental_transaction_id,
+                    rt.member_id,
                     rti.furniture_id,
                     f.name AS furniture_name,
                     rt.rental_date_time,
@@ -132,6 +110,7 @@ namespace KLS_Furniture.DAL
                     ReturnRentalItemLookup item = new ReturnRentalItemLookup
                     {
                         RentalTransactionId = r.GetInt32(r.GetOrdinal("rental_transaction_id")),
+                        MemberId = r.GetInt32(r.GetOrdinal("member_id")),
                         FurnitureId = r.GetInt32(r.GetOrdinal("furniture_id")),
                         FurnitureName = r.GetString(r.GetOrdinal("furniture_name")),
                         RentalDateTime = r.GetDateTime(r.GetOrdinal("rental_date_time")),
@@ -198,6 +177,7 @@ namespace KLS_Furniture.DAL
                 TotalFineAmount = 0m,
                 TotalRefundAmount = 0m
             };
+            int? expectedMemberId = null;
 
             foreach (ReturnItemInput item in request.Items)
             {
@@ -220,6 +200,14 @@ namespace KLS_Furniture.DAL
                 ReturnRentalItemLookup rentalItem = GetRentalItemForReturn(item.RentalTransactionId, item.FurnitureId);
                 if (rentalItem == null)
                     throw new ArgumentException("The selected rental item does not exist.");
+
+                if (request.ReturnDateTime < rentalItem.RentalDateTime)
+                    throw new ArgumentException("Return date cannot be earlier than rental date.");
+
+                if (!expectedMemberId.HasValue)
+                    expectedMemberId = rentalItem.MemberId;
+                else if (rentalItem.MemberId != expectedMemberId.Value)
+                    throw new ArgumentException("All return items in one return transaction must belong to the same member.");
 
                 if (item.QuantityToReturn > rentalItem.QuantityRemainingReturnable)
                     throw new ArgumentException("Return quantity exceeds the remaining returnable quantity.");
@@ -353,6 +341,7 @@ namespace KLS_Furniture.DAL
             const string sql = @"
                 SELECT
                     rt.rental_transaction_id,
+                    rt.member_id,
                     rti.furniture_id,
                     f.name AS furniture_name,
                     rt.rental_date_time,
@@ -372,6 +361,7 @@ namespace KLS_Furniture.DAL
                 WHERE rt.member_id = @MemberId
                 GROUP BY
                     rt.rental_transaction_id,
+                    rt.member_id,
                     rti.furniture_id,
                     f.name,
                     rt.rental_date_time,
@@ -397,6 +387,7 @@ namespace KLS_Furniture.DAL
                             items.Add(new ReturnRentalItemLookup
                             {
                                 RentalTransactionId = r.GetInt32(r.GetOrdinal("rental_transaction_id")),
+                                MemberId = r.GetInt32(r.GetOrdinal("member_id")),
                                 FurnitureId = r.GetInt32(r.GetOrdinal("furniture_id")),
                                 FurnitureName = r.GetString(r.GetOrdinal("furniture_name")),
                                 RentalDateTime = r.GetDateTime(r.GetOrdinal("rental_date_time")),
