@@ -165,10 +165,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controller\AdminController.cs" />
     <Compile Include="Controller\AuthController.cs" />
     <Compile Include="Controller\MemberHistoryController.cs" />
     <Compile Include="Controller\MemberManagementController.cs" />
     <Compile Include="Controller\RentalController.cs" />
+    <Compile Include="DAL\AdminDBDAL.cs" />
     <Compile Include="DAL\EmployeeDBDAL.cs" />
     <Compile Include="DAL\KLSFurnitureDBConnection.cs" />
     <Compile Include="DAL\MemberHistoryDBDAL.cs" />
@@ -188,6 +190,7 @@
     <Compile Include="Model\Lookups\IdNameLookupItem.cs" />
     <Compile Include="Model\Lookups\LoggedInUserLookupItem.cs" />
     <Compile Include="Model\Lookups\MemberSearchCriteria.cs" />
+    <Compile Include="Model\Lookups\PopularFurnitureReportItem.cs" />
     <Compile Include="Model\Lookups\RentalFurnitureLookupItem.cs" />
     <Compile Include="Model\Lookups\RentalHistoryItem.cs" />
     <Compile Include="Model\Lookups\RentalMemberLookupItem.cs" />
@@ -197,6 +200,12 @@
     <Compile Include="Model\Rental\RentalItemInput.cs" />
     <Compile Include="Model\Rental\RentalSaveRequest.cs" />
     <Compile Include="Model\Rental\RentalSaveResult.cs" />
+    <Compile Include="UserControls\AdminReportUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\AdminReportUserControl.Designer.cs">
+      <DependentUpon>AdminReportUserControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\FurnitureRentalUserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -270,6 +279,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="UserControls\AdminReportUserControl.resx">
+      <DependentUpon>AdminReportUserControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UserControls\FurnitureRentalUserControl.resx">
       <DependentUpon>FurnitureRentalUserControl.cs</DependentUpon>
     </EmbeddedResource>
