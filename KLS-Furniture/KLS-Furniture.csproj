@@ -176,6 +176,7 @@
     <Compile Include="DAL\MemberHistoryDBDAL.cs" />
     <Compile Include="DAL\MemberManagementDBDAL.cs" />
     <Compile Include="DAL\RentalDBDAL.cs" />
+    <Compile Include="DAL\ReturnDBDAL.cs" />
     <Compile Include="Model\CurrentSession.cs" />
     <Compile Include="Model\Entities\Employee.cs" />
     <Compile Include="Model\Entities\Furniture.cs" />
@@ -195,11 +196,17 @@
     <Compile Include="Model\Lookups\RentalHistoryItem.cs" />
     <Compile Include="Model\Lookups\RentalMemberLookupItem.cs" />
     <Compile Include="Model\Lookups\ReturnHistoryItem.cs" />
+    <Compile Include="Model\Lookups\ReturnRentalLookupItem.cs" />
     <Compile Include="Model\Rental\RentalCalculator.cs" />
     <Compile Include="Model\Rental\RentalDebugRunner.cs" />
     <Compile Include="Model\Rental\RentalItemInput.cs" />
     <Compile Include="Model\Rental\RentalSaveRequest.cs" />
     <Compile Include="Model\Rental\RentalSaveResult.cs" />
+    <Compile Include="Model\Return\ReturnCalculator.cs" />
+    <Compile Include="Model\Return\ReturnDebugRunner.cs" />
+    <Compile Include="Model\Return\ReturnItemInput.cs" />
+    <Compile Include="Model\Return\ReturnSaveRequest.cs" />
+    <Compile Include="Model\Return\ReturnSaveResult.cs" />
     <Compile Include="UserControls\AdminReportUserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
