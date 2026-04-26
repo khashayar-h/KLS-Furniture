@@ -170,6 +170,7 @@
     <Compile Include="Controller\MemberHistoryController.cs" />
     <Compile Include="Controller\MemberManagementController.cs" />
     <Compile Include="Controller\RentalController.cs" />
+    <Compile Include="Controller\ReturnController.cs" />
     <Compile Include="DAL\AdminDBDAL.cs" />
     <Compile Include="DAL\EmployeeDBDAL.cs" />
     <Compile Include="DAL\KLSFurnitureDBConnection.cs" />
@@ -218,6 +219,12 @@
     </Compile>
     <Compile Include="UserControls\FurnitureRentalUserControl.Designer.cs">
       <DependentUpon>FurnitureRentalUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\FurnitureReturnUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\FurnitureReturnUserControl.Designer.cs">
+      <DependentUpon>FurnitureReturnUserControl.cs</DependentUpon>
     </Compile>
     <Compile Include="UserControls\MemberDetailsUserControl.cs">
       <SubType>UserControl</SubType>
@@ -297,6 +304,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\FurnitureRentalUserControl.resx">
       <DependentUpon>FurnitureRentalUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\FurnitureReturnUserControl.resx">
+      <DependentUpon>FurnitureReturnUserControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserControls\MemberDetailsUserControl.resx">
       <DependentUpon>MemberDetailsUserControl.cs</DependentUpon>
