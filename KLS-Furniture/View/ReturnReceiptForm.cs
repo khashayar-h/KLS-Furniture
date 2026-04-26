@@ -1,39 +1,21 @@
-﻿using KLS_Furniture.Model.Entities;
-using KLS_Furniture.UserControls;
+﻿using KLS_Furniture.Model.Lookups;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace KLS_Furniture.View
 {
-    /// <summary>
-    /// View that displays the information for a return transaction
-    /// </summary>
     public partial class ReturnReceiptForm : Form
     {
-        /// <summary>
-        /// Contructor for ReturnReceiptForm class
-        /// </summary>
-        /// <param name="returnTransactionId"> Id of the transaction represented</param>
-        /// <param name="memberDisplayText">Name of the member who the return belongs to</param>
-        /// <param name="totalRefund"> Refund amount of the transaction</param>
-        /// <param name="totalFine"> Fine amount of the transaction</param>
-        /// <param name="items"> list of items returned during transaction</param>
         public ReturnReceiptForm(
-            int returnTransactionId
-            , string memberDisplayText
-            , decimal totalRefund
-            , decimal totalFine
-            //, List<TBD> items todo: add correct type
-            )
+            int returnTransactionId,
+            string memberDisplayText,
+            decimal totalRefund,
+            decimal totalFine,
+            List<ReturnHistoryItem> items)
         {
             InitializeComponent();
+            StartPosition = FormStartPosition.CenterParent;
 
             TransactionIdLabel.Text = "Return Transaction ID: " + returnTransactionId;
             CustomerLabel.Text = "Customer: " + memberDisplayText;
@@ -41,33 +23,49 @@ namespace KLS_Furniture.View
             RefundLabel.Text = "Total Refund: " + totalRefund.ToString("C2");
             FineLabel.Text = "Total Fine: " + totalFine.ToString("C2");
 
-            //populateTable(items);
+            PopulateTable(items);
         }
 
         private void CloseButton_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
 
-        //private void populateTable(List<TBD> items)
-        //{
-        //    ReceiptDatagrid.DataSource = items;
+        private void PopulateTable(List<ReturnHistoryItem> items)
+        {
+            ReceiptDatagrid.AutoGenerateColumns = false;
+            ReceiptDatagrid.Columns.Clear();
+            ReceiptDatagrid.ReadOnly = true;
+            ReceiptDatagrid.AllowUserToAddRows = false;
+            ReceiptDatagrid.AllowUserToDeleteRows = false;
+            ReceiptDatagrid.DataSource = items;
 
-        //    ReceiptDatagrid.AutoGenerateColumns = true;
+            AddColumn("Return #", "ReturnTransactionId");
+            AddColumn("Rental #", "RentalTransactionId");
+            AddColumn("Furniture ID", "FurnitureId");
+            AddColumn("Furniture Item", "FurnitureName");
+            AddColumn("Qty Returned", "QuantityReturned");
+            AddColumn("Fine", "FineAmount", "C2");
+            AddColumn("Refund", "RefundAmount", "C2");
 
+            ReceiptDatagrid.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
+        }
 
-        //    // List subject to change based on return line items
-        //    ReceiptDatagrid.Columns["ReturnTransactionId"].HeaderText = "Return #";
-        //    ReceiptDatagrid.Columns["ReturnDate"].HeaderText = "Rental Date";
-        //    ReceiptDatagrid.Columns["EmployeeName"].HeaderText = "Employee";
-        //    ReceiptDatagrid.Columns["FurnitureId"].HeaderText = "Furniture Id";
-        //    ReceiptDatagrid.Columns["FurnitureName"].HeaderText = "Furniture Item";
-        //    ReceiptDatagrid.Columns["CategoryName"].HeaderText = "Category";
-        //    ReceiptDatagrid.Columns["Quantity"].HeaderText = "Qty";
-        //    ReceiptDatagrid.Columns["FineAmount"].HeaderText = "Fine Amount";
-        //    ReceiptDatagrid.Columns["RefundAmount"].HeaderText = "Refund Amount";
+        private void AddColumn(string headerText, string dataPropertyName, string format = null)
+        {
+            DataGridViewTextBoxColumn column = new DataGridViewTextBoxColumn
+            {
+                HeaderText = headerText,
+                DataPropertyName = dataPropertyName,
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells
+            };
 
-        //    ReceiptDatagrid.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
-        //}
+            if (!string.IsNullOrWhiteSpace(format))
+            {
+                column.DefaultCellStyle = new DataGridViewCellStyle { Format = format };
+            }
+
+            ReceiptDatagrid.Columns.Add(column);
+        }
     }
 }
