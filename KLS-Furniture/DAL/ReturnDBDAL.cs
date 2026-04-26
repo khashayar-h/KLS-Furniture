@@ -331,7 +331,7 @@ namespace KLS_Furniture.DAL
         /// <summary>
         /// Returns all rental items for a member that still have returnable quantity remaining.
         /// </summary>
-        public List<ReturnRentalItemLookup> GetReturnableItemsForMember(int memberId)
+        public List<ReturnRentalItemLookup> GetReturnableRentalItemsForMember(int memberId)
         {
             if (memberId <= 0)
                 throw new ArgumentException("A valid member is required.");
@@ -404,6 +404,63 @@ namespace KLS_Furniture.DAL
             catch (SqlException ex)
             {
                 throw new DataException("A database error occurred while loading returnable rental items.", ex);
+            }
+
+            return items;
+        }
+
+        public List<ReturnHistoryItem> GetReturnReceiptItems(int returnTransactionId)
+        {
+            if (returnTransactionId <= 0)
+                throw new ArgumentException("A valid return transaction is required.");
+
+            List<ReturnHistoryItem> items = new List<ReturnHistoryItem>();
+
+            const string sql = @"
+                SELECT rt.return_transaction_id, rt.return_date_time, rti.rental_transaction_id,
+                       e.first_name + ' ' + e.last_name AS employee_name,
+                       rti.furniture_id, f.name AS furniture_name, c.category_name,
+                       rti.quantity_returned, rti.fine_amount, rti.refund_amount
+                FROM dbo.return_transactions rt
+                INNER JOIN dbo.return_transaction_items rti ON rt.return_transaction_id = rti.return_transaction_id
+                INNER JOIN dbo.furniture f ON rti.furniture_id = f.furniture_id
+                INNER JOIN dbo.furniture_categories c ON f.category_id = c.category_id
+                INNER JOIN dbo.employees e ON e.employee_id = rt.employee_id
+                WHERE rt.return_transaction_id = @ReturnTransactionId
+                ORDER BY rti.rental_transaction_id, rti.furniture_id;";
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(_cs))
+                using (SqlCommand cmd = new SqlCommand(sql, conn))
+                {
+                    cmd.Parameters.Add("@ReturnTransactionId", SqlDbType.Int).Value = returnTransactionId;
+                    conn.Open();
+
+                    using (SqlDataReader r = cmd.ExecuteReader())
+                    {
+                        while (r.Read())
+                        {
+                            items.Add(new ReturnHistoryItem
+                            {
+                                ReturnTransactionId = r.GetInt32(r.GetOrdinal("return_transaction_id")),
+                                ReturnDate = r.GetDateTime(r.GetOrdinal("return_date_time")),
+                                RentalTransactionId = r.GetInt32(r.GetOrdinal("rental_transaction_id")),
+                                EmployeeName = r.GetString(r.GetOrdinal("employee_name")),
+                                FurnitureId = r.GetInt32(r.GetOrdinal("furniture_id")),
+                                FurnitureName = r.GetString(r.GetOrdinal("furniture_name")),
+                                CategoryName = r.GetString(r.GetOrdinal("category_name")),
+                                QuantityReturned = r.GetInt32(r.GetOrdinal("quantity_returned")),
+                                FineAmount = r.GetDecimal(r.GetOrdinal("fine_amount")),
+                                RefundAmount = r.GetDecimal(r.GetOrdinal("refund_amount"))
+                            });
+                        }
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw new DataException("A database error occurred while loading the return receipt.", ex);
             }
 
             return items;
