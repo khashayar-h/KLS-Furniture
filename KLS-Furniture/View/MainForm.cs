@@ -20,6 +20,7 @@ namespace KLS_Furniture
         private readonly MemberHistoryUserControl memberHistoryUserControl = new MemberHistoryUserControl();
         private readonly FurnitureRentalUserControl furnitureRentalUserControl = new FurnitureRentalUserControl();
         private readonly AdminReportUserControl adminReportUserControl = new AdminReportUserControl();
+        private readonly FurnitureReturnUserControl furnitureReturnUserControl = new FurnitureReturnUserControl();
 
         private UserControl currentScreen;
 
@@ -42,7 +43,8 @@ namespace KLS_Furniture
             this.ContentPanel.Controls.Add(memberManageUserControl);
             this.ContentPanel.Controls.Add(memberHistoryUserControl);
             this.ContentPanel.Controls.Add(furnitureRentalUserControl);
-            
+            this.ContentPanel.Controls.Add(furnitureReturnUserControl);
+
 
             // Link navigation events to correct form initialization
             navUserControl1.MemberManagementClicked += Nav_MemberManagementClicked;
@@ -102,8 +104,7 @@ namespace KLS_Furniture
         private void Nav_ReturnClicked(object sender, EventArgs e)
         {
             navUserControl1.SetActiveTab("returns");
-            // Todo: Update with correct user control
-            //this.ShowContent();
+            this.ShowContent(furnitureReturnUserControl);
         }
 
         private void Nav_MemberHistoryClicked(object sender, EventArgs e)
