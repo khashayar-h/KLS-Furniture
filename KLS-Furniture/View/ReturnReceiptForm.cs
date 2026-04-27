@@ -5,8 +5,19 @@ using System.Windows.Forms;
 
 namespace KLS_Furniture.View
 {
+    /// <summary>
+    /// Class def for Return transaction reciept view
+    /// </summary>
     public partial class ReturnReceiptForm : Form
     {
+        /// <summary>
+        /// Contructor for ReturnReceiptForm class
+        /// </summary>
+        /// <param name="returnTransactionId"> Id of the return transaction</param>
+        /// <param name="memberDisplayText">Member who the transaction is for</param>
+        /// <param name="totalRefund"> Refund amount of the transaction</param>
+        /// <param name="totalFine">Fine Amount of the transaction</param>
+        /// <param name="items">List of items that were returned</param>
         public ReturnReceiptForm(
             int returnTransactionId,
             string memberDisplayText,
@@ -20,8 +31,9 @@ namespace KLS_Furniture.View
             TransactionIdLabel.Text = "Return Transaction ID: " + returnTransactionId;
             CustomerLabel.Text = "Customer: " + memberDisplayText;
             ReturnDateLabel.Text = "Return Date: " + DateTime.Today.ToShortDateString();
-            RefundLabel.Text = "Total Refund: " + totalRefund.ToString("C2");
+            RefundLabel.Text = "Total Refund: " + (totalRefund * -1).ToString("C2") ;
             FineLabel.Text = "Total Fine: " + totalFine.ToString("C2");
+            TransactionTotalLabel.Text = "Transaction Total: " + (totalFine + (totalRefund * -1)).ToString("C2");
 
             PopulateTable(items);
         }

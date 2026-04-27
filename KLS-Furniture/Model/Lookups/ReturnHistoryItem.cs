@@ -19,7 +19,7 @@ namespace KLS_Furniture.Model.Lookups
         public decimal RefundAmount { get; set; }
 
         // Calculated fields
-        public decimal NetAmount => RefundAmount - FineAmount;
+        public decimal NetAmount => (RefundAmount *-1) + FineAmount;
 
     }
 }

@@ -152,6 +152,14 @@ namespace KLS_Furniture.DAL
             }
         }
 
+        /// <summary>
+        /// Function to save a return transaction
+        /// </summary>
+        /// <param name="request">Details of the transaction to be saved</param>
+        /// <returns>Result of the transaction save</returns>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="ArgumentException"></exception>
+        /// <exception cref="DataException"></exception>
         public ReturnSaveResult SaveReturnTransaction(ReturnSaveRequest request)
         {
             if (request == null)
@@ -409,6 +417,13 @@ namespace KLS_Furniture.DAL
             return items;
         }
 
+        /// <summary>
+        /// Function to retrieve details on return transaction
+        /// </summary>
+        /// <param name="returnTransactionId">Id of the transaction</param>
+        /// <returns>List of items from transaction</returns>
+        /// <exception cref="ArgumentException"></exception>
+        /// <exception cref="DataException"></exception>
         public List<ReturnHistoryItem> GetReturnReceiptItems(int returnTransactionId)
         {
             if (returnTransactionId <= 0)

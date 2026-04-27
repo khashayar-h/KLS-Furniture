@@ -111,20 +111,24 @@
             this.dgvReturnableItems.AllowUserToAddRows = false;
             this.dgvReturnableItems.AllowUserToDeleteRows = false;
             this.dgvReturnableItems.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvReturnableItems.ColumnHeadersHeight = 29;
             this.dgvReturnableItems.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvReturnableItems.Location = new System.Drawing.Point(3, 451);
             this.dgvReturnableItems.Name = "dgvReturnableItems";
             this.dgvReturnableItems.ReadOnly = true;
+            this.dgvReturnableItems.RowHeadersWidth = 51;
             this.dgvReturnableItems.Size = new System.Drawing.Size(644, 154);
             this.dgvReturnableItems.TabIndex = 3;
             // 
             // dgvCart
             // 
             this.dgvCart.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvCart.ColumnHeadersHeight = 29;
             this.dgvCart.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvCart.Location = new System.Drawing.Point(3, 611);
             this.dgvCart.Name = "dgvCart";
             this.dgvCart.ReadOnly = true;
+            this.dgvCart.RowHeadersWidth = 51;
             this.dgvCart.Size = new System.Drawing.Size(644, 144);
             this.dgvCart.TabIndex = 4;
             // 
@@ -161,7 +165,7 @@
             0,
             0});
             this.nudQuantity.Name = "nudQuantity";
-            this.nudQuantity.Size = new System.Drawing.Size(120, 20);
+            this.nudQuantity.Size = new System.Drawing.Size(120, 22);
             this.nudQuantity.TabIndex = 1;
             this.nudQuantity.Value = new decimal(new int[] {
             1,
@@ -213,7 +217,7 @@
             // 
             this.lblTotals.Location = new System.Drawing.Point(3, 29);
             this.lblTotals.Name = "lblTotals";
-            this.lblTotals.Size = new System.Drawing.Size(100, 23);
+            this.lblTotals.Size = new System.Drawing.Size(323, 23);
             this.lblTotals.TabIndex = 7;
             this.lblTotals.Text = "Fine: $0.00   Refund: $0.00";
             // 

@@ -12,10 +12,10 @@ namespace KLS_Furniture.Model.Return
         /// </summary>
         public static decimal CalculateFine(DateTime dueDateTime, DateTime returnDateTime, decimal dailyRateAtRent, int quantityToReturn)
         {
-            if (returnDateTime <= dueDateTime)
+            if (returnDateTime.Date <= dueDateTime.Date)
                 return 0m;
 
-            int overdueDays = (int)Math.Ceiling((returnDateTime - dueDateTime).TotalDays);
+            int overdueDays = (int)Math.Ceiling((returnDateTime.Date - dueDateTime.Date).TotalDays);
             if (overdueDays < 0)
                 overdueDays = 0;
 
@@ -27,10 +27,10 @@ namespace KLS_Furniture.Model.Return
         /// </summary>
         public static decimal CalculateRefund(DateTime dueDateTime, DateTime returnDateTime, decimal dailyRateAtRent, int quantityToReturn)
         {
-            if (returnDateTime >= dueDateTime)
+            if (returnDateTime.Date >= dueDateTime.Date)
                 return 0m;
 
-            int unusedDays = (int)Math.Ceiling((dueDateTime - returnDateTime).TotalDays);
+            int unusedDays = (int)Math.Ceiling((dueDateTime.Date - returnDateTime.Date).TotalDays);
             if (unusedDays < 0)
                 unusedDays = 0;
 

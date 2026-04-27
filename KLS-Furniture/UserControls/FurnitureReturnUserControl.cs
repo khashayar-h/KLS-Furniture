@@ -11,6 +11,9 @@ using System.Windows.Forms;
 
 namespace KLS_Furniture.UserControls
 {
+    /// <summary>
+    /// Class that handles return transaction functionality
+    /// </summary>
     public partial class FurnitureReturnUserControl : UserControl
     {
         private readonly MemberManagementController _memberController = new MemberManagementController();
@@ -21,6 +24,9 @@ namespace KLS_Furniture.UserControls
 
         private Member _selectedMember;
 
+        /// <summary>
+        /// Constructor of FurnitureReturnUserControl class
+        /// </summary>
         public FurnitureReturnUserControl()
         {
             InitializeComponent();
@@ -228,12 +234,13 @@ namespace KLS_Furniture.UserControls
                 }
 
                 decimal totalFine = _cartItems.Sum(x => x.FineAmount);
-                decimal totalRefund = _cartItems.Sum(x => x.RefundAmount);
+                decimal totalRefund = _cartItems.Sum(x => x.RefundAmount) *-1;
 
                 DialogResult confirm = MessageBox.Show(
                     "Finalize this return?\n\nItems: " + _cartItems.Count +
                     "\nTotal Fine: " + totalFine.ToString("C2") +
-                    "\nTotal Refund: " + totalRefund.ToString("C2"),
+                    "\nTotal Refund: " + totalRefund.ToString("C2") +
+                    "\nTotal Balance: " + (totalFine + totalRefund).ToString("C2"),
                     "Confirm Return",
                     MessageBoxButtons.YesNo,
                     MessageBoxIcon.Question);
@@ -289,8 +296,12 @@ namespace KLS_Furniture.UserControls
             _cartSource.DataSource = null;
             _cartSource.DataSource = _cartItems.ToList();
 
-            lblTotals.Text = "Fine: " + _cartItems.Sum(x => x.FineAmount).ToString("C2") +
-                             "   Refund: " + _cartItems.Sum(x => x.RefundAmount).ToString("C2");
+            decimal fineTotal = _cartItems.Sum(x => x.FineAmount);
+            decimal refundTotal = _cartItems.Sum(x => x.RefundAmount) * -1;
+
+            lblTotals.Text = "Fine: " + fineTotal.ToString("C2") +
+                             "   Refund: " + refundTotal.ToString("C2") +
+                             "   Total: " + (fineTotal + refundTotal).ToString("C2");
         }
 
         private void ClearAll()
@@ -311,6 +322,11 @@ namespace KLS_Furniture.UserControls
             private readonly DateTime _dueDateTime;
             private readonly decimal _dailyRateAtRent;
 
+            /// <summary>
+            /// Constructor of ReturnCartRow class
+            /// </summary>
+            /// <param name="item"> item being returned</param>
+            /// <param name="quantity">quantity of return</param>
             public ReturnCartRow(ReturnRentalItemLookup item, int quantity)
             {
                 RentalTransactionId = item.RentalTransactionId;
@@ -325,6 +341,9 @@ namespace KLS_Furniture.UserControls
                 Recalculate(DateTime.Now);
             }
 
+            /// <summary>
+            /// Getter/Setter functions for ReturnCartRow item fields
+            /// </summary>
             public int RentalTransactionId { get; set; }
             public int FurnitureId { get; set; }
             public string FurnitureName { get; set; }
@@ -333,6 +352,10 @@ namespace KLS_Furniture.UserControls
             public decimal FineAmount { get; private set; }
             public decimal RefundAmount { get; private set; }
 
+            /// <summary>
+            /// Function to calculate refund and fine amounts
+            /// </summary>
+            /// <param name="returnDateTime">Date of return</param>
             public void Recalculate(DateTime returnDateTime)
             {
                 FineAmount = ReturnCalculator.CalculateFine(_dueDateTime, returnDateTime, _dailyRateAtRent, QuantityToReturn);
