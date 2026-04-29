@@ -266,8 +266,10 @@ namespace KLS_Furniture.UserControls
                 ReturnSaveResult result = _returnController.SaveReturnTransaction(request);
                 List<ReturnHistoryItem> receiptItems = _returnController.GetReturnReceiptItems(result.ReturnTransactionId);
 
+                string employeeName = CurrentSession.LoggedInUser.FirstName + " " + CurrentSession.LoggedInUser.LastName;
                 using (ReturnReceiptForm receipt = new ReturnReceiptForm(
                     result.ReturnTransactionId,
+                    employeeName,
                     _selectedMember.FirstName + " " + _selectedMember.LastName,
                     result.TotalRefundAmount,
                     result.TotalFineAmount,

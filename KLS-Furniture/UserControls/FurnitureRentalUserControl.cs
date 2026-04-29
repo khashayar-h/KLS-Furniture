@@ -534,8 +534,11 @@ namespace KLS_Furniture.UserControls
 
                 RentalSaveResult result = rentalController.SaveRentalTransaction(request);
 
+                string employeeName = CurrentSession.LoggedInUser.FirstName + " " + CurrentSession.LoggedInUser.LastName;
+
                 using (RentalReceiptForm receiptForm = new RentalReceiptForm(
                     result.RentalTransactionId,
+                    employeeName,
                     $"{selectedMember.FirstName} {selectedMember.LastName}",
                     dtpDueDate.Value.Date,
                     cartItems,

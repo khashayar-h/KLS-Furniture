@@ -16,12 +16,14 @@ namespace KLS_Furniture.View
         /// Contructor for RentalReceiptForm class
         /// </summary>
         /// <param name="rentalTransactionId"> Id of the transaction represented</param>
+        /// <param name="employeeName">Employee who processed transaction</param>
         /// <param name="memberDisplayText">Name of the member who the rental belongs to</param>
         /// <param name="dueDate">Date the rental is due to be returned</param>
         /// <param name="items"> list of items rented during transaction</param>
         /// <param name="totalCost"> Cost of the transaction</param>
         public RentalReceiptForm(
             int rentalTransactionId,
+            string employeeName,
             string memberDisplayText,
             DateTime dueDate,
             List<FurnitureRentalUserControl.RentalCartRow> items,
@@ -36,6 +38,7 @@ namespace KLS_Furniture.View
             _bindingSource.DataSource = items;
 
             lblTransactionId.Text = "Rental Transaction ID: " + rentalTransactionId;
+            lblEmployee.Text = "Employee: " + employeeName;
             lblCustomer.Text = "Customer: " + memberDisplayText;
             lblRentalDate.Text = "Rental Date: " + DateTime.Today.ToShortDateString();
             lblDueDate.Text = "Due Date: " + dueDate.ToShortDateString();

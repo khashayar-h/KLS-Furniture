@@ -15,12 +15,14 @@ namespace KLS_Furniture.View
         /// Contructor for ReturnReceiptForm class
         /// </summary>
         /// <param name="returnTransactionId"> Id of the return transaction</param>
+        /// <param name="employeeName">Employee who processed transaction</param>
         /// <param name="memberDisplayText">Member who the transaction is for</param>
         /// <param name="totalRefund"> Refund amount of the transaction</param>
         /// <param name="totalFine">Fine Amount of the transaction</param>
         /// <param name="items">List of items that were returned</param>
         public ReturnReceiptForm(
             int returnTransactionId,
+            string employeeName,
             string memberDisplayText,
             decimal totalRefund,
             decimal totalFine,
@@ -30,7 +32,7 @@ namespace KLS_Furniture.View
             StartPosition = FormStartPosition.CenterParent;
 
             TransactionIdLabel.Text = "Return Transaction ID: " + returnTransactionId;
-            EmployeeLabel.Text = "Employee: " + items.FirstOrDefault().EmployeeName;
+            EmployeeLabel.Text = "Employee: " + employeeName;
             CustomerLabel.Text = "Customer: " + memberDisplayText;
             ReturnDateLabel.Text = "Return Date: " + DateTime.Today.ToShortDateString();
             RefundLabel.Text = "Total Refund: " + (totalRefund * -1).ToString("C2") ;

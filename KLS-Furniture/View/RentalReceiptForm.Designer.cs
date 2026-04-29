@@ -36,6 +36,7 @@
             this.btnClose = new System.Windows.Forms.Button();
             this.lblRentalDate = new System.Windows.Forms.Label();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.lblEmployee = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvReceiptItems)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
@@ -55,7 +56,7 @@
             // 
             this.lblCustomer.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.lblCustomer.AutoSize = true;
-            this.lblCustomer.Location = new System.Drawing.Point(4, 67);
+            this.lblCustomer.Location = new System.Drawing.Point(4, 117);
             this.lblCustomer.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblCustomer.Name = "lblCustomer";
             this.lblCustomer.Size = new System.Drawing.Size(64, 16);
@@ -66,7 +67,7 @@
             // 
             this.lblDueDate.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.lblDueDate.AutoSize = true;
-            this.lblDueDate.Location = new System.Drawing.Point(4, 167);
+            this.lblDueDate.Location = new System.Drawing.Point(4, 217);
             this.lblDueDate.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblDueDate.Name = "lblDueDate";
             this.lblDueDate.Size = new System.Drawing.Size(64, 16);
@@ -77,7 +78,7 @@
             // 
             this.lblTotalCost.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.lblTotalCost.AutoSize = true;
-            this.lblTotalCost.Location = new System.Drawing.Point(4, 217);
+            this.lblTotalCost.Location = new System.Drawing.Point(4, 267);
             this.lblTotalCost.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblTotalCost.Name = "lblTotalCost";
             this.lblTotalCost.Size = new System.Drawing.Size(68, 16);
@@ -91,18 +92,18 @@
             this.dgvReceiptItems.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.tableLayoutPanel1.SetColumnSpan(this.dgvReceiptItems, 2);
             this.dgvReceiptItems.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvReceiptItems.Location = new System.Drawing.Point(4, 254);
+            this.dgvReceiptItems.Location = new System.Drawing.Point(4, 304);
             this.dgvReceiptItems.Margin = new System.Windows.Forms.Padding(4);
             this.dgvReceiptItems.Name = "dgvReceiptItems";
             this.dgvReceiptItems.ReadOnly = true;
             this.dgvReceiptItems.RowHeadersWidth = 51;
-            this.dgvReceiptItems.Size = new System.Drawing.Size(804, 192);
+            this.dgvReceiptItems.Size = new System.Drawing.Size(804, 173);
             this.dgvReceiptItems.TabIndex = 4;
             // 
             // btnClose
             // 
             this.btnClose.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.btnClose.Location = new System.Drawing.Point(559, 488);
+            this.btnClose.Location = new System.Drawing.Point(559, 503);
             this.btnClose.Margin = new System.Windows.Forms.Padding(4);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(100, 28);
@@ -114,7 +115,7 @@
             // 
             this.lblRentalDate.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.lblRentalDate.AutoSize = true;
-            this.lblRentalDate.Location = new System.Drawing.Point(3, 117);
+            this.lblRentalDate.Location = new System.Drawing.Point(3, 167);
             this.lblRentalDate.Name = "lblRentalDate";
             this.lblRentalDate.Size = new System.Drawing.Size(78, 16);
             this.lblRentalDate.TabIndex = 6;
@@ -126,25 +127,37 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.Controls.Add(this.lblTransactionId, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.btnClose, 1, 6);
-            this.tableLayoutPanel1.Controls.Add(this.lblRentalDate, 0, 2);
-            this.tableLayoutPanel1.Controls.Add(this.lblCustomer, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.lblTotalCost, 0, 4);
-            this.tableLayoutPanel1.Controls.Add(this.lblDueDate, 0, 3);
-            this.tableLayoutPanel1.Controls.Add(this.dgvReceiptItems, 0, 5);
+            this.tableLayoutPanel1.Controls.Add(this.btnClose, 1, 7);
+            this.tableLayoutPanel1.Controls.Add(this.dgvReceiptItems, 0, 6);
+            this.tableLayoutPanel1.Controls.Add(this.lblTotalCost, 0, 5);
+            this.tableLayoutPanel1.Controls.Add(this.lblDueDate, 0, 4);
+            this.tableLayoutPanel1.Controls.Add(this.lblRentalDate, 0, 3);
+            this.tableLayoutPanel1.Controls.Add(this.lblCustomer, 0, 2);
+            this.tableLayoutPanel1.Controls.Add(this.lblEmployee, 0, 1);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 7;
+            this.tableLayoutPanel1.RowCount = 8;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 200F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 181F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(812, 554);
             this.tableLayoutPanel1.TabIndex = 7;
+            // 
+            // lblEmployee
+            // 
+            this.lblEmployee.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.lblEmployee.AutoSize = true;
+            this.lblEmployee.Location = new System.Drawing.Point(3, 67);
+            this.lblEmployee.Name = "lblEmployee";
+            this.lblEmployee.Size = new System.Drawing.Size(69, 16);
+            this.lblEmployee.TabIndex = 7;
+            this.lblEmployee.Text = "Employee";
             // 
             // RentalReceiptForm
             // 
@@ -173,5 +186,6 @@
         private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.Label lblRentalDate;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.Label lblEmployee;
     }
 }
