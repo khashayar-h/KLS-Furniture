@@ -30,9 +30,17 @@ namespace KLS_Furniture.Model.Return
             if (returnDateTime.Date >= dueDateTime.Date)
                 return 0m;
 
-            int unusedDays = (int)Math.Ceiling((dueDateTime.Date - returnDateTime.Date).TotalDays);
-            if (unusedDays < 0)
-                unusedDays = 0;
+            // Calculate total days the item was supposed to be rented
+            int totalRentalDays = (int)Math.Ceiling((dueDateTime.Date - returnDateTime.Date).TotalDays);
+
+            // Calculate days actually used
+            int daysUsed = (int)Math.Ceiling((returnDateTime.Date - returnDateTime.Date).TotalDays);
+
+            // Minimum 1 day charge
+            if (daysUsed < 1)
+                daysUsed = 1;
+
+            int unusedDays = totalRentalDays - daysUsed;
 
             return unusedDays * dailyRateAtRent * quantityToReturn;
         }
