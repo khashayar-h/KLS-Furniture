@@ -30,13 +30,14 @@
         {
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.TransactionIdLabel = new System.Windows.Forms.Label();
-            this.CloseButton = new System.Windows.Forms.Button();
             this.ReturnDateLabel = new System.Windows.Forms.Label();
             this.CustomerLabel = new System.Windows.Forms.Label();
             this.FineLabel = new System.Windows.Forms.Label();
             this.RefundLabel = new System.Windows.Forms.Label();
+            this.CloseButton = new System.Windows.Forms.Button();
             this.ReceiptDatagrid = new System.Windows.Forms.DataGridView();
             this.TransactionTotalLabel = new System.Windows.Forms.Label();
+            this.EmployeeLabel = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ReceiptDatagrid)).BeginInit();
             this.SuspendLayout();
@@ -47,25 +48,27 @@
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel1.Controls.Add(this.TransactionIdLabel, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.ReturnDateLabel, 0, 2);
-            this.tableLayoutPanel1.Controls.Add(this.CustomerLabel, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.FineLabel, 0, 4);
-            this.tableLayoutPanel1.Controls.Add(this.RefundLabel, 0, 3);
-            this.tableLayoutPanel1.Controls.Add(this.CloseButton, 1, 7);
-            this.tableLayoutPanel1.Controls.Add(this.ReceiptDatagrid, 1, 5);
-            this.tableLayoutPanel1.Controls.Add(this.TransactionTotalLabel, 0, 5);
+            this.tableLayoutPanel1.Controls.Add(this.CloseButton, 1, 8);
+            this.tableLayoutPanel1.Controls.Add(this.ReceiptDatagrid, 0, 7);
+            this.tableLayoutPanel1.Controls.Add(this.TransactionTotalLabel, 0, 6);
+            this.tableLayoutPanel1.Controls.Add(this.FineLabel, 0, 5);
+            this.tableLayoutPanel1.Controls.Add(this.RefundLabel, 0, 4);
+            this.tableLayoutPanel1.Controls.Add(this.ReturnDateLabel, 0, 3);
+            this.tableLayoutPanel1.Controls.Add(this.CustomerLabel, 0, 2);
+            this.tableLayoutPanel1.Controls.Add(this.EmployeeLabel, 0, 1);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 8;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 52F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 187F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 31F));
+            this.tableLayoutPanel1.RowCount = 9;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 45F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 45F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 45F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 45F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 45F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 45F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 45F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 154F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 59F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(664, 533);
             this.tableLayoutPanel1.TabIndex = 8;
             // 
@@ -73,30 +76,18 @@
             // 
             this.TransactionIdLabel.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.TransactionIdLabel.AutoSize = true;
-            this.TransactionIdLabel.Location = new System.Drawing.Point(4, 17);
+            this.TransactionIdLabel.Location = new System.Drawing.Point(4, 14);
             this.TransactionIdLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.TransactionIdLabel.Name = "TransactionIdLabel";
             this.TransactionIdLabel.Size = new System.Drawing.Size(94, 16);
             this.TransactionIdLabel.TabIndex = 0;
             this.TransactionIdLabel.Text = "Transaction ID";
             // 
-            // CloseButton
-            // 
-            this.CloseButton.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.CloseButton.Location = new System.Drawing.Point(448, 497);
-            this.CloseButton.Margin = new System.Windows.Forms.Padding(4);
-            this.CloseButton.Name = "CloseButton";
-            this.CloseButton.Size = new System.Drawing.Size(100, 28);
-            this.CloseButton.TabIndex = 5;
-            this.CloseButton.Text = "Close";
-            this.CloseButton.UseVisualStyleBackColor = true;
-            this.CloseButton.Click += new System.EventHandler(this.CloseButton_Click);
-            // 
             // ReturnDateLabel
             // 
             this.ReturnDateLabel.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.ReturnDateLabel.AutoSize = true;
-            this.ReturnDateLabel.Location = new System.Drawing.Point(3, 117);
+            this.ReturnDateLabel.Location = new System.Drawing.Point(3, 149);
             this.ReturnDateLabel.Name = "ReturnDateLabel";
             this.ReturnDateLabel.Size = new System.Drawing.Size(78, 16);
             this.ReturnDateLabel.TabIndex = 6;
@@ -106,7 +97,7 @@
             // 
             this.CustomerLabel.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.CustomerLabel.AutoSize = true;
-            this.CustomerLabel.Location = new System.Drawing.Point(4, 67);
+            this.CustomerLabel.Location = new System.Drawing.Point(4, 104);
             this.CustomerLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.CustomerLabel.Name = "CustomerLabel";
             this.CustomerLabel.Size = new System.Drawing.Size(64, 16);
@@ -117,7 +108,7 @@
             // 
             this.FineLabel.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.FineLabel.AutoSize = true;
-            this.FineLabel.Location = new System.Drawing.Point(4, 217);
+            this.FineLabel.Location = new System.Drawing.Point(4, 239);
             this.FineLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.FineLabel.Name = "FineLabel";
             this.FineLabel.Size = new System.Drawing.Size(67, 16);
@@ -128,12 +119,24 @@
             // 
             this.RefundLabel.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.RefundLabel.AutoSize = true;
-            this.RefundLabel.Location = new System.Drawing.Point(4, 167);
+            this.RefundLabel.Location = new System.Drawing.Point(4, 194);
             this.RefundLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.RefundLabel.Name = "RefundLabel";
             this.RefundLabel.Size = new System.Drawing.Size(84, 16);
             this.RefundLabel.TabIndex = 2;
             this.RefundLabel.Text = "Total Refund";
+            // 
+            // CloseButton
+            // 
+            this.CloseButton.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.CloseButton.Location = new System.Drawing.Point(448, 487);
+            this.CloseButton.Margin = new System.Windows.Forms.Padding(4);
+            this.CloseButton.Name = "CloseButton";
+            this.CloseButton.Size = new System.Drawing.Size(100, 28);
+            this.CloseButton.TabIndex = 5;
+            this.CloseButton.Text = "Close";
+            this.CloseButton.UseVisualStyleBackColor = true;
+            this.CloseButton.Click += new System.EventHandler(this.CloseButton_Click);
             // 
             // ReceiptDatagrid
             // 
@@ -142,23 +145,33 @@
             this.ReceiptDatagrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.tableLayoutPanel1.SetColumnSpan(this.ReceiptDatagrid, 2);
             this.ReceiptDatagrid.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ReceiptDatagrid.Location = new System.Drawing.Point(4, 306);
+            this.ReceiptDatagrid.Location = new System.Drawing.Point(4, 319);
             this.ReceiptDatagrid.Margin = new System.Windows.Forms.Padding(4);
             this.ReceiptDatagrid.Name = "ReceiptDatagrid";
             this.ReceiptDatagrid.ReadOnly = true;
             this.ReceiptDatagrid.RowHeadersWidth = 51;
-            this.ReceiptDatagrid.Size = new System.Drawing.Size(656, 179);
+            this.ReceiptDatagrid.Size = new System.Drawing.Size(656, 146);
             this.ReceiptDatagrid.TabIndex = 4;
             // 
             // TransactionTotalLabel
             // 
             this.TransactionTotalLabel.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.TransactionTotalLabel.AutoSize = true;
-            this.TransactionTotalLabel.Location = new System.Drawing.Point(3, 268);
+            this.TransactionTotalLabel.Location = new System.Drawing.Point(3, 284);
             this.TransactionTotalLabel.Name = "TransactionTotalLabel";
             this.TransactionTotalLabel.Size = new System.Drawing.Size(112, 16);
             this.TransactionTotalLabel.TabIndex = 7;
             this.TransactionTotalLabel.Text = "Transaction Total";
+            // 
+            // EmployeeLabel
+            // 
+            this.EmployeeLabel.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.EmployeeLabel.AutoSize = true;
+            this.EmployeeLabel.Location = new System.Drawing.Point(3, 59);
+            this.EmployeeLabel.Name = "EmployeeLabel";
+            this.EmployeeLabel.Size = new System.Drawing.Size(69, 16);
+            this.EmployeeLabel.TabIndex = 8;
+            this.EmployeeLabel.Text = "Employee";
             // 
             // ReturnReceiptForm
             // 
@@ -186,5 +199,6 @@
         private System.Windows.Forms.Label RefundLabel;
         private System.Windows.Forms.DataGridView ReceiptDatagrid;
         private System.Windows.Forms.Label TransactionTotalLabel;
+        private System.Windows.Forms.Label EmployeeLabel;
     }
 }

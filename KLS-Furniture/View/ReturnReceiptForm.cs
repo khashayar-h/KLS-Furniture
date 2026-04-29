@@ -1,6 +1,7 @@
 ﻿using KLS_Furniture.Model.Lookups;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace KLS_Furniture.View
@@ -29,6 +30,7 @@ namespace KLS_Furniture.View
             StartPosition = FormStartPosition.CenterParent;
 
             TransactionIdLabel.Text = "Return Transaction ID: " + returnTransactionId;
+            EmployeeLabel.Text = "Employee: " + items.FirstOrDefault().EmployeeName;
             CustomerLabel.Text = "Customer: " + memberDisplayText;
             ReturnDateLabel.Text = "Return Date: " + DateTime.Today.ToShortDateString();
             RefundLabel.Text = "Total Refund: " + (totalRefund * -1).ToString("C2") ;
