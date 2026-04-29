@@ -433,11 +433,14 @@ namespace KLS_Furniture.DAL
 
             const string sql = @"
                 SELECT rt.return_transaction_id, rt.return_date_time, rti.rental_transaction_id,
+                       rental.rental_date_time AS rental_date,
                        e.first_name + ' ' + e.last_name AS employee_name,
                        rti.furniture_id, f.name AS furniture_name, c.category_name,
                        rti.quantity_returned, rti.fine_amount, rti.refund_amount
                 FROM dbo.return_transactions rt
                 INNER JOIN dbo.return_transaction_items rti ON rt.return_transaction_id = rti.return_transaction_id
+                INNER JOIN dbo.rental_transactions rental
+                    ON rti.rental_transaction_id = rental.rental_transaction_id
                 INNER JOIN dbo.furniture f ON rti.furniture_id = f.furniture_id
                 INNER JOIN dbo.furniture_categories c ON f.category_id = c.category_id
                 INNER JOIN dbo.employees e ON e.employee_id = rt.employee_id
@@ -461,6 +464,7 @@ namespace KLS_Furniture.DAL
                                 ReturnTransactionId = r.GetInt32(r.GetOrdinal("return_transaction_id")),
                                 ReturnDate = r.GetDateTime(r.GetOrdinal("return_date_time")),
                                 RentalTransactionId = r.GetInt32(r.GetOrdinal("rental_transaction_id")),
+                                RentalDate = r.GetDateTime(r.GetOrdinal("rental_date")),
                                 EmployeeName = r.GetString(r.GetOrdinal("employee_name")),
                                 FurnitureId = r.GetInt32(r.GetOrdinal("furniture_id")),
                                 FurnitureName = r.GetString(r.GetOrdinal("furniture_name")),

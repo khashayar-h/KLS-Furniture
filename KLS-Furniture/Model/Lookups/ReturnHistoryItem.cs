@@ -10,6 +10,7 @@ namespace KLS_Furniture.Model.Lookups
         public int ReturnTransactionId { get; set; }
         public DateTime ReturnDate { get; set; }
         public int RentalTransactionId { get; set; }
+        public DateTime RentalDate { get; set; }
         public string EmployeeName { get; set; }
         public int FurnitureId { get; set; }
         public string FurnitureName { get; set; } = string.Empty;

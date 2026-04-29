@@ -54,6 +54,7 @@ namespace KLS_Furniture.View
 
             AddColumn("Return #", "ReturnTransactionId");
             AddColumn("Rental #", "RentalTransactionId");
+            AddColumn("Rental Date", "RentalDate","d");
             AddColumn("Furniture ID", "FurnitureId");
             AddColumn("Furniture Item", "FurnitureName");
             AddColumn("Qty Returned", "QuantityReturned");

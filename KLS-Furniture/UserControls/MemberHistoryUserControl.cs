@@ -177,6 +177,7 @@ namespace KLS_Furniture.UserControls
                 ReturnDataGridView.Columns["ReturnTransactionId"].HeaderText = "Return #";
                 ReturnDataGridView.Columns["ReturnDate"].HeaderText = "Return Date";
                 ReturnDataGridView.Columns["RentalTransactionId"].HeaderText = "Orig. Rental #";
+                ReturnDataGridView.Columns["RentalDate"].HeaderText = "Rental Date";
                 ReturnDataGridView.Columns["EmployeeName"].HeaderText = "Employee";
                 ReturnDataGridView.Columns["FurnitureId"].HeaderText = "Furniture Id";
                 ReturnDataGridView.Columns["FurnitureName"].HeaderText = "Furniture Item";
