@@ -321,6 +321,7 @@ namespace KLS_Furniture.UserControls
 
         private class ReturnCartRow
         {
+            private readonly DateTime _rentalDateTime;
             private readonly DateTime _dueDateTime;
             private readonly decimal _dailyRateAtRent;
 
@@ -336,6 +337,7 @@ namespace KLS_Furniture.UserControls
                 FurnitureName = item.FurnitureName;
                 QuantityRemainingReturnable = item.QuantityRemainingReturnable;
 
+                _rentalDateTime = item.RentalDateTime;
                 _dueDateTime = item.DueDateTime;
                 _dailyRateAtRent = item.DailyRateAtRent;
 
@@ -361,7 +363,7 @@ namespace KLS_Furniture.UserControls
             public void Recalculate(DateTime returnDateTime)
             {
                 FineAmount = ReturnCalculator.CalculateFine(_dueDateTime, returnDateTime, _dailyRateAtRent, QuantityToReturn);
-                RefundAmount = ReturnCalculator.CalculateRefund(_dueDateTime, returnDateTime, _dailyRateAtRent, QuantityToReturn);
+                RefundAmount = ReturnCalculator.CalculateRefund(_rentalDateTime, _dueDateTime, returnDateTime, _dailyRateAtRent, QuantityToReturn);
             }
         }
     }

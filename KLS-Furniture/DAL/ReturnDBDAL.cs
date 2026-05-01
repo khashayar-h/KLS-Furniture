@@ -227,6 +227,7 @@ namespace KLS_Furniture.DAL
                     item.QuantityToReturn);
 
                 decimal refundAmount = ReturnCalculator.CalculateRefund(
+                    rentalItem.RentalDateTime,
                     rentalItem.DueDateTime,
                     request.ReturnDateTime,
                     rentalItem.DailyRateAtRent,
