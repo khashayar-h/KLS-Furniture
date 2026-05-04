@@ -64,6 +64,15 @@ See the Wiki for more details on the project plan.
 - Standard Password: test1234
 - All requirements for this iteration are complete
 
+## Final Iteration
+- Admin Username: jane
+- Admin Password: test1234
+- Standard Username: thomas
+- Standard Password: test1234
+- All requirements are complete
+- There are no known bugs in the application
+- DB has not changed since Iteration 3
+
 ## License
 
 MIT License – see the [LICENSE](LICENSE) file for details.
