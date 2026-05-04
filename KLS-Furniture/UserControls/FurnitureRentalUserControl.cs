@@ -532,6 +532,22 @@ namespace KLS_Furniture.UserControls
                     }).ToList()
                 };
 
+                DialogResult confirmResult = MessageBox.Show(
+                    "Please review the rental order before confirming.\n\n" +
+                    "Member: " + selectedMember.FirstName + " " + selectedMember.LastName + "\n" +
+                    "Due Date: " + dtpDueDate.Value.Date.ToShortDateString() + "\n" +
+                    "Total Cost: " + lblTotalCostValue.Text + "\n\n" +
+                    "Do you want to complete this rental?",
+                    "Confirm Rental",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question
+                );
+
+                if (confirmResult != DialogResult.Yes)
+                {
+                    return;
+                }
+
                 RentalSaveResult result = rentalController.SaveRentalTransaction(request);
 
                 string employeeName = CurrentSession.LoggedInUser.FirstName + " " + CurrentSession.LoggedInUser.LastName;
